@@ -81,7 +81,7 @@ namespace Przypominajka_3._0.Views
         {
             //loadedLOTR = MainManager.SQL.GetDataFromTableLOTR();
             FillTable();
-            //Console.WriteLine("Finished {0:N0} iterations.", t.Result);
+            Console.WriteLine("Finished {0:N0} iterations.");
             //FillTable();
             //Thread.Sleep(1000);
            // MainManager.ChangeStatusInfo();
