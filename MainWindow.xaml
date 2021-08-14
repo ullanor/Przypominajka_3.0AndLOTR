@@ -1,0 +1,59 @@
+﻿<Window x:Class="Przypominajka_3._0.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Przypominajka_3._0"
+        xmlns:viewmodels="clr-namespace:Przypominajka_3._0.ViewModels"
+        xmlns:views="clr-namespace:Przypominajka_3._0.Views"
+        mc:Ignorable="d"
+        Title="MT-pablo" Height="629.034" Width="1281.858" Loaded="WindowIsLoaded" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <DataTemplate x:Name="AddEventsViewTamplate" DataType="{x:Type viewmodels:EventsAddViewModel}">
+            <views:EventsAddView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="EventsViewTemplate" DataType="{x:Type viewmodels:EventsMainViewModel}">
+            <views:EventsMainView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="AddLOTRViewTamplate" DataType="{x:Type viewmodels:LOTRAddViewModel}">
+            <views:LOTRAddView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="LOTRViewTemplate" DataType="{x:Type viewmodels:LOTRViewModel}">
+            <views:LOTRView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+    <!--<Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFAAD8EE" Offset="0"/>
+            <GradientStop Color="#FF21B912" Offset="1"/>
+            <GradientStop Color="#FFD6F9FF" Offset="0.723"/>
+            <GradientStop Color="#FF4ABD64" Offset="0.73"/>
+            <GradientStop Color="#FF41D4FF" Offset="0.43"/>
+            <GradientStop Color="#FF0F9E22" Offset="0.857"/>
+        </LinearGradientBrush>
+    </Window.Background>-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock x:Name="menuText" Text="Set MT conn credentials before testing" FontSize="20" Width="auto"/>
+        </StackPanel>
+        <!-- action buttons -->
+        <StackPanel Margin="5,0,5,0" Grid.Row="1">
+            <Button x:Name="EvetsMainView" Content="Events" FontSize="20" Focusable="False" Height="50" Click="EventsView_Click"/>
+            <Button x:Name="EventsAddView" Content="Add Event" FontSize="20" Focusable="False" Height="50" Click="EventsAdd_Click"/>
+            <Button x:Name="LOTRview" Content="LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRView_Click"/>
+            <Button x:Name="LOTRaddView" Content="Add LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRadd_Click"/>
+            <TextBox x:Name="testStatus" Height="auto" Text="FALSE" FontSize="18" FontWeight="Bold" TextAlignment="Center" Background="White" Margin="0,50,0,0" IsReadOnly="True"/>
+            <!--<TextBox x:Name="testTime" Height="auto" FontSize="18" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True"/>
+            <Button x:Name="clearButton" Content="rxBytes" FontSize="16" Focusable="False" Height="auto" Click="clearButton_Click"/>-->
+        </StackPanel>
+        <ContentControl Grid.Column="1" Grid.Row="1" Grid.RowSpan="1" Content="{Binding}" Margin="0,0,0,0"/>
+    </Grid>
+</Window>
