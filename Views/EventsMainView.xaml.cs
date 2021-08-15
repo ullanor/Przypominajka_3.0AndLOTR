@@ -50,16 +50,34 @@ namespace Przypominajka_3._0.Views
             if (visible) EventInfo.Text = EventsManager.SelectedEvent.eName; else EventInfo.Text = string.Empty;       
         }
 
-        private void MarkEventButton_Click(object sender, RoutedEventArgs e)
+        private async void MarkEventButton_Click(object sender, RoutedEventArgs e)
         {
-            dataGridEvents.ItemsSource = EventsManager.MarkSelectedEvent();
+            //dataGridEvents.ItemsSource = EventsManager.MarkSelectedEvent();
+            //SetEventsControlsVisibility();
+
+            MainManager.ChangeStatusInfo(false);
+            var source = await Task.Run(() =>
+            {
+                return EventsManager.MarkSelectedEvent();
+            });
+            dataGridEvents.ItemsSource = source;
             SetEventsControlsVisibility();
+            MainManager.ChangeStatusInfo(true);
         }
 
-        private void RemoveEventButton_Click(object sender, RoutedEventArgs e)
+        private async void RemoveEventButton_Click(object sender, RoutedEventArgs e)
         {
-            dataGridEvents.ItemsSource = EventsManager.DeleteSelectedEvent();
+            //dataGridEvents.ItemsSource = EventsManager.DeleteSelectedEvent();
+            //SetEventsControlsVisibility();
+
+            MainManager.ChangeStatusInfo(false);
+            var source = await Task.Run(() =>
+            {
+                return EventsManager.DeleteSelectedEvent();
+            });
+            dataGridEvents.ItemsSource = source;
             SetEventsControlsVisibility();
+            MainManager.ChangeStatusInfo(true);
         }
 
         private void EditEventButton_Click(object sender, RoutedEventArgs e)
@@ -67,10 +85,16 @@ namespace Przypominajka_3._0.Views
 
         }
 
-        private void CheckDataButton_Click(object sender, RoutedEventArgs e)
+        private async void CheckDataButton_Click(object sender, RoutedEventArgs e)
         {
-            dataGridEvents.ItemsSource = EventsManager.CheckEvents();
+            MainManager.ChangeStatusInfo(false);
+            var source = await Task.Run(() =>
+            {
+                return EventsManager.CheckEvents();
+            });
+            dataGridEvents.ItemsSource = source;
             SetEventsControlsVisibility();
+            MainManager.ChangeStatusInfo(true);
         }
     }
 }

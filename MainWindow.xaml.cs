@@ -24,13 +24,22 @@ namespace Przypominajka_3._0
         public MainWindow()
         {
             InitializeComponent();
-            MainManager.SQL = new SQLiteOperations();
-            MainManager.testStr = "HEJKA FROM WINGOD";
-            MainManager.MainWindow = this;
-            testStatus.Text = MainManager.DefaultStatusText;
+            testStatus.Text = MainManager.DefaultStatusTextWorking;
 
-            EventsManager.CheckEvents();
-            LOTR_Manager.InitializeLOTRList();
+            LoadData();
+        }
+
+        private async void LoadData()
+        {
+            await Task.Run(() =>
+            {
+                if(MainManager.SQL == null) MainManager.SQL = new SQLiteOperations();
+                MainManager.testStr = "HEJKA FROM WINGOD";
+                MainManager.MainWindow = this;
+                EventsManager.CheckEvents();
+                LOTR_Manager.InitializeLOTRList();
+            });
+            testStatus.Text = MainManager.DefaultStatusText;
         }
 
         private void WindowIsLoaded(object sender, RoutedEventArgs e)
@@ -40,7 +49,7 @@ namespace Przypominajka_3._0
 
         private void EventsView_Click(object sender, RoutedEventArgs e)
         {
-            testStatus.Text = "LOADING";
+            //testStatus.Text = "LOADING";
             DataContext = new EventsMainViewModel();
         }
 
@@ -50,7 +59,7 @@ namespace Przypominajka_3._0
         }
         private void LOTRView_Click(object sender, RoutedEventArgs e)
         {
-            testStatus.Text = "LOADING";
+            //testStatus.Text = "LOADING";
             DataContext = new LOTRViewModel();
         }
         private void LOTRadd_Click(object sender, RoutedEventArgs e)

@@ -10,12 +10,14 @@ namespace Przypominajka_3._0
     {
         public static SQLiteOperations SQL;
         public static string testStr;
-        public static string DefaultStatusText = "OK";
+        public static string DefaultStatusText = "Ready";
+        public static string DefaultStatusTextWorking = "Working";
         public static MainWindow MainWindow;
 
-        public static void ChangeStatusInfo()
+        public static void ChangeStatusInfo(bool finished)
         {
-            MainWindow.testStatus.Text = DefaultStatusText;
+            if(finished) MainWindow.testStatus.Text = DefaultStatusText;
+            else MainWindow.testStatus.Text = DefaultStatusTextWorking;
         }
     }
 }

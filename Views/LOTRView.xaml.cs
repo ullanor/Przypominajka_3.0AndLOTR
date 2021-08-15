@@ -47,24 +47,24 @@ namespace Przypominajka_3._0.Views
             TableValues TV;
             for (int i = 0; i < units; i++)
             {
-                    TV = new TableValues
-                    {
-                        lp = i.ToString(),
-                        value1 = LOTR_Manager.loadedLOTRs[i * 10].limgSrc,
-                        value2 = LOTR_Manager.loadedLOTRs[i * 10 + 1].limgSrc,
-                        value3 = LOTR_Manager.loadedLOTRs[i * 10 + 2].limgSrc,
-                        value4 = LOTR_Manager.loadedLOTRs[i * 10 + 3].limgSrc,
-                        value5 = LOTR_Manager.loadedLOTRs[i * 10 + 4].limgSrc,
-                        value6 = LOTR_Manager.loadedLOTRs[i * 10 + 5].limgSrc,
-                        value7 = LOTR_Manager.loadedLOTRs[i * 10 + 6].limgSrc,
-                        value8 = LOTR_Manager.loadedLOTRs[i * 10 + 7].limgSrc,
-                        value9 = LOTR_Manager.loadedLOTRs[i * 10 + 8].limgSrc,
-                        value10 = LOTR_Manager.loadedLOTRs[i * 10 + 9].limgSrc,
-                    };
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        this.testGrid.Items.Add(TV);
-                    });
+                TV = new TableValues
+                {
+                    lp = i.ToString(),
+                    value1 = LOTR_Manager.loadedLOTRs[i * 10].limgSrc,
+                    value2 = LOTR_Manager.loadedLOTRs[i * 10 + 1].limgSrc,
+                    value3 = LOTR_Manager.loadedLOTRs[i * 10 + 2].limgSrc,
+                    value4 = LOTR_Manager.loadedLOTRs[i * 10 + 3].limgSrc,
+                    value5 = LOTR_Manager.loadedLOTRs[i * 10 + 4].limgSrc,
+                    value6 = LOTR_Manager.loadedLOTRs[i * 10 + 5].limgSrc,
+                    value7 = LOTR_Manager.loadedLOTRs[i * 10 + 6].limgSrc,
+                    value8 = LOTR_Manager.loadedLOTRs[i * 10 + 7].limgSrc,
+                    value9 = LOTR_Manager.loadedLOTRs[i * 10 + 8].limgSrc,
+                    value10 = LOTR_Manager.loadedLOTRs[i * 10 + 9].limgSrc,
+              };
+              Dispatcher.Invoke(() =>
+              {
+                testGrid.Items.Add(TV);
+              });
             }
         }
 
@@ -82,11 +82,12 @@ namespace Przypominajka_3._0.Views
 
         private async void OnEventsViewLoaded(object sender, RoutedEventArgs e)
         {
+            MainManager.ChangeStatusInfo(false);
             await Task.Run(() =>
             {
                 FillTable();
             });
-            MainManager.ChangeStatusInfo();
+            MainManager.ChangeStatusInfo(true);
         }
 
         private void TEdt(object sender, MouseButtonEventArgs e)

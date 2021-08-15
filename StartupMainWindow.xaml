@@ -22,8 +22,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="MoveToMain" Content="Pokaż Wydarzenia" HorizontalAlignment="Left" Margin="5,151,0,10" Width="398" Click="MoveToMain_Click" FontSize="24" FontWeight="Bold" FontFamily="Times New Roman" Foreground="#FF170FB6"/>
-        <TextBlock x:Name="wydarzeniaInfo" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" Text="Brak nadchodzących wydarzeń :)" VerticalAlignment="Top" Height="141" Width="393" FontSize="24" Foreground="#FF990B0B" FontFamily="Times New Roman" FontWeight="Bold"/>
+        <Button x:Name="MoveToMain" Content="Move to Main Window" HorizontalAlignment="Left" Margin="5,151,0,10" Width="398" Click="MoveToMain_Click" FontSize="24" FontWeight="Bold" FontFamily="Times New Roman" Foreground="#FF170FB6"/>
+        <TextBlock x:Name="eventsInfo" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="141" Width="393" FontSize="24" Foreground="#FF990B0B" FontFamily="Times New Roman" FontWeight="Bold"/>
         <Image x:Name="obrazek" HorizontalAlignment="Left" Height="82" Margin="413,106,0,0" VerticalAlignment="Top" Width="83" Source="Assets/nukalipsaLOGO.jpg"/>
         <TextBlock x:Name="przyp" HorizontalAlignment="Left" Margin="413,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"><Run Text="Przypominajka"/></TextBlock>
         <Border BorderBrush="#FF4263D3" BorderThickness="1" HorizontalAlignment="Left" Height="141" VerticalAlignment="Top" Width="398" Margin="5,5,0,0"/>
