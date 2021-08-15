@@ -29,6 +29,7 @@ namespace Przypominajka_3._0.Views
         {
             string imgSrc = LOTR_Manager.NewIssueImageFinder();
             MainManager.SQL.InsertIntoTableLOTR(92, imgSrc);
+            LOTR_Manager.InitializeLOTRList();
             MessageBox.Show(imgSrc);
         }
     }

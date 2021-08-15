@@ -26,11 +26,11 @@ namespace Przypominajka_3._0
             InitializeComponent();
             MainManager.SQL = new SQLiteOperations();
             MainManager.testStr = "HEJKA FROM WINGOD";
-
-            MainManager.InitializeEventsList();
-            LOTR_Manager.InitializeLOTRList();
-            testStatus.Text = MainManager.DefaultStatusText;
             MainManager.MainWindow = this;
+            testStatus.Text = MainManager.DefaultStatusText;
+
+            EventsManager.CheckEvents();
+            LOTR_Manager.InitializeLOTRList();
         }
 
         private void WindowIsLoaded(object sender, RoutedEventArgs e)
@@ -58,5 +58,9 @@ namespace Przypominajka_3._0
             DataContext = new LOTRAddViewModel();
         }
 
+        private void autoStartChangeButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegistryToggler.AutostartEditor();
+        }
     }
 }

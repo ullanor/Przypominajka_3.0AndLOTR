@@ -17,20 +17,5 @@ namespace Przypominajka_3._0
         {
             MainWindow.testStatus.Text = DefaultStatusText;
         }
-        public static void InitializeEventsList()
-        {
-            loadedEvents = SQL.GetDataFromTableEvents();
-        }
-        public static List<LoadedEvent> loadedEvents;
-
-    }
-
-    public class LoadedEvent
-    {
-        public int id { get; set; }
-        public string eName { get; set; }
-        public DateTime eExp { get; set; }
-        public int eType { get; set; }
-        public int eStatus { get; set; }
     }
 }

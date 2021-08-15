@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:main="clr-namespace:Przypominajka_3._0"
              xmlns:local="clr-namespace:Przypominajka_3._0.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="#FFEAEAEA" Loaded="OnEventsViewLoaded">
+    <UserControl.Resources>
+        <main:NameToBrushConverterRates x:Key="NameToBrushConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -14,13 +18,34 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <TextBox x:Name="boxik" Height="auto" Text="Events" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Green"/>
-        <DataGrid Grid.RowSpan="3" Grid.Row="1" AutoGenerateColumns="False"  HorizontalAlignment="Left"  Name="dataGrid1" VerticalAlignment="Top" IsReadOnly="True" MouseLeftButtonDown="TEdt">
+        <Button x:Name="CheckDataButton" Content="Check Data" FontSize="16"  VerticalAlignment="Top" HorizontalAlignment="Right" Click="CheckDataButton_Click"/>
+        <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,5" HorizontalAlignment="Center" Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <!--<Setter Property="Margin" Value="5,0,5,0"/>-->
+                    <Setter Property="Focusable" Value="False"/>
+                    <Setter Property="IsEnabled" Value="False"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBox x:Name="EventInfo" Text="Info" FontSize="16" IsEnabled="False"></TextBox>
+            <Button x:Name="RemoveEventButton" Content="Remove Event" FontSize="16" Width="200" Click="RemoveEventButton_Click"/>
+            <Button x:Name="MarkEventButton" Content="Mark As Done" FontSize="16" Width="200" Click="MarkEventButton_Click"/>
+            <Button x:Name="EditEventButton" Content="Edit Event" FontSize="16" Width="200" Click="EditEventButton_Click"/>
+        </StackPanel>
+        <DataGrid Grid.RowSpan="3" Grid.Row="1" AutoGenerateColumns="False"  HorizontalAlignment="Left"  Name="dataGridEvents" VerticalAlignment="Top" IsReadOnly="True" SelectionChanged="OnEventSelected" FontSize="18" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Width="1*" Binding="{Binding id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ID" Width="0.5*" Binding="{Binding id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Event" Width="10*" Binding="{Binding eName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Expiration" Width="2*" Binding="{Binding eExp}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Width="1*" Binding="{Binding eType}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Width="1*" Binding="{Binding eStatus}"></DataGridTextColumn>
+                <DataGridTextColumn Header="DaysLeft" Width="1.5*" Binding="{Binding eDAYS}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Background" Value="{Binding eDAYS, Converter={StaticResource NameToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Width="1.5*" Binding="{Binding eType}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Status" Width="1*" Binding="{Binding eStatus}"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

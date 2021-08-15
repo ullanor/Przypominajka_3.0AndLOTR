@@ -29,19 +29,48 @@ namespace Przypominajka_3._0.Views
 
         private void OnEventsViewLoaded(object sender, RoutedEventArgs e)
         {
-            //LoadedEvent dupa = new LoadedEvent(0, "cupa", "506", 3, 1);
-            //List<LoadedEvent> loadedEvents = new List<LoadedEvent>();
-            //loadedEvents.Add(dupa);
-            //loadedEvents.Add(dupa);
-            //loadedEvents.Add(dupa);
-            dataGrid1.ItemsSource = MainManager.loadedEvents;
-            //MainManager.ChangeStatusInfo();
+            EventsManager.SelectedEvent = null;
+            dataGridEvents.ItemsSource = EventsManager.loadedEvents;
         }
 
-        private void TEdt(object sender, MouseButtonEventArgs e)
+        private void OnEventSelected(object sender, SelectionChangedEventArgs e)
         {
-            LoadedEvent selected = (LoadedEvent)dataGrid1.SelectedItem;
-            MessageBox.Show("DUPA "+selected.id);
+            EventsManager.SelectedEvent = (LoadedEvent)dataGridEvents.SelectedItem;
+            SetEventsControlsVisibility();
+        }
+
+        private void SetEventsControlsVisibility()
+        {
+            bool visible = EventsManager.SelectedEvent != null;
+
+            //EditEventButton.IsEnabled = visible;
+            MarkEventButton.IsEnabled = visible;
+            RemoveEventButton.IsEnabled = visible;
+            EventInfo.IsEnabled = visible;
+            if (visible) EventInfo.Text = EventsManager.SelectedEvent.eName; else EventInfo.Text = string.Empty;       
+        }
+
+        private void MarkEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridEvents.ItemsSource = EventsManager.MarkSelectedEvent();
+            SetEventsControlsVisibility();
+        }
+
+        private void RemoveEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridEvents.ItemsSource = EventsManager.DeleteSelectedEvent();
+            SetEventsControlsVisibility();
+        }
+
+        private void EditEventButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridEvents.ItemsSource = EventsManager.CheckEvents();
+            SetEventsControlsVisibility();
         }
     }
 }

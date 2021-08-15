@@ -51,6 +51,7 @@
             <Button x:Name="LOTRview" Content="LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRView_Click"/>
             <Button x:Name="LOTRaddView" Content="Add LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRadd_Click"/>
             <TextBox x:Name="testStatus" Height="auto" Text="FALSE" FontSize="18" FontWeight="Bold" TextAlignment="Center" Background="White" Margin="0,50,0,0" IsReadOnly="True"/>
+            <Button x:Name="autoStartChangeButton" Content="Toggle Autostart" FontSize="20" Focusable="False" Height="50" Click="autoStartChangeButton_Click"/>
             <!--<TextBox x:Name="testTime" Height="auto" FontSize="18" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True"/>
             <Button x:Name="clearButton" Content="rxBytes" FontSize="16" Focusable="False" Height="auto" Click="clearButton_Click"/>-->
         </StackPanel>

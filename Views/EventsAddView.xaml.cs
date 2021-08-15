@@ -25,11 +25,22 @@ namespace Przypominajka_3._0.Views
             InitializeComponent();
         }
 
-        private void StartTest_Click(object sender, RoutedEventArgs e)
+        private void ClearEventFields()
         {
-            string imgSrc = LOTR_Manager.NewIssueImageFinder();
-            MainManager.SQL.InsertIntoTableLOTR(45, imgSrc);
-            MessageBox.Show(imgSrc);
+            EventExpTime.SelectedDate = null;
+            EventType.SelectedItem = null;
+            EventName.Text = string.Empty;
+        }
+        private void SaveEvent_Click(object sender, RoutedEventArgs e)
+        {
+            if (EventExpTime.SelectedDate != null && EventType.SelectedItem != null)
+            {
+                DateTime dt;
+                if (!EventExpTime.SelectedDate.HasValue) dt = DateTime.Now;
+                else dt = (DateTime)EventExpTime.SelectedDate;
+                EventsManager.CreateNewEvent(EventName.Text, dt, (PrzypominajkaEventType)EventType.SelectedItem);
+                ClearEventFields();
+            }
         }
     }
 }
