@@ -49,7 +49,7 @@ namespace Przypominajka_3._0
                 if (evento.eDAYS == 0) { todayCount++; continue; }
                 if (evento.eDAYS < 3) { lessThan3DaysCount++; continue; }
             }
-            Thread.Sleep(2000); //TEStING!!!
+            //Thread.Sleep(2000); //TEStING!!!
             Dispatcher.Invoke(() =>
             {
                 eventsInfo.Text = $"Total Events: {events.Count()} \n{lessThan3DaysCount} -> will expire in less than 3 days!\n" +

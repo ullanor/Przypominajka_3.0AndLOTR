@@ -183,9 +183,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\BlueDefenderF.png" />
-    <Resource Include="Assets\nukalipsaLOGO.jpg" />
-    <Resource Include="Assets\ULTRAicon.ico" />
+    <EmbeddedResource Include="Assets\BlueDefenderF.png" />
+    <EmbeddedResource Include="Assets\nukalipsaLOGO.jpg" />
+    <EmbeddedResource Include="Assets\ULTRAicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

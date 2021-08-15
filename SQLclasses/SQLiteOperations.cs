@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Przypominajka_3._0
 {
@@ -19,17 +21,11 @@ namespace Przypominajka_3._0
             System.IO.Directory.CreateDirectory(SQLiteReferences.imagesDir);
             if (!System.IO.File.Exists(SQLiteReferences.DBpath))
             {
+                SQLiteReferences.ExtractFileResource("Przypominajka_3._0.Assets.nukalipsaLOGO.jpg", SQLiteReferences.standardImage);
                 sqlite_conn = CreateConnection();
                 CreateDataTable();
                 sqlite_conn.Close();
             }
-            //TEST!
-            //MessageBox.Show("DONE: " + SQLiteReferences.DBpath);
-            //InsertIntoTable("DUPA Test", DateTime.Now, PrzypominajkaEventType.Annual, false);
-            //InsertIntoTable("DUP2A Test", DateTime.Now, PrzypominajkaEventType.Monthly, true);
-            //InsertIntoTableEvents("DUP3A Test", DateTime.Now, PrzypominajkaEventType.Annual, false);
-            //InsertIntoTableEvents("DUP4A Test", DateTime.Now, PrzypominajkaEventType.Annual, false);
-            //InsertIntoTableLOTR(56, "");
         }
         SQLiteConnection CreateConnection()
         {
@@ -69,10 +65,9 @@ namespace Przypominajka_3._0
             sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
-
             for (int i = 1; i <= 91; i++)
             {
-                ExecuteSQLCommand($"INSERT INTO PrzypominajkaLOTR(issue, imgSrc) VALUES('{i}','{i}'); ");
+                ExecuteSQLCommand($"INSERT INTO PrzypominajkaLOTR(issue, imgSrc) VALUES('{i}','{SQLiteReferences.standardImage}'); ");
             }
         }
 
