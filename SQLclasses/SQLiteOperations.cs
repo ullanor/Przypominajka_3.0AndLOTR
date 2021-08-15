@@ -134,7 +134,7 @@ namespace Przypominajka_3._0
             while (sqlite_datareader.Read())
             {
                 expDate = Convert.ToDateTime(sqlite_datareader.GetString(2));
-                TotalDaysLeft = (expDate - curDate).Days;
+                TotalDaysLeft = (int)Math.Floor((expDate - curDate).TotalDays);
                 status = sqlite_datareader.GetInt32(4);
                 if (TotalDaysLeft < 0 || status == 1)
                 {
@@ -184,7 +184,7 @@ namespace Przypominajka_3._0
                     eExp = expDate.ToString("dd'/'MM'/'yyyy"),
                     eType = (PrzypominajkaEventType)sqlite_datareader.GetInt32(3),
                     eStatus = sqlite_datareader.GetInt32(4),
-                    eDAYS = (int)Math.Ceiling((expDate - curDate).TotalDays)             
+                    eDAYS = (int)Math.Floor((expDate - curDate).TotalDays)             
                 });
             }
             sqlite_conn.Close();
