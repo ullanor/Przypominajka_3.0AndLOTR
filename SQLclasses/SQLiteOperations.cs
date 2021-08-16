@@ -125,7 +125,7 @@ namespace Przypominajka_3._0
                 if (TotalDaysLeft < 0 || status == 1)
                 {
                     type = (PrzypominajkaEventType)sqlite_datareader.GetInt32(3);
-                    if (type == PrzypominajkaEventType.Standard) { if (TotalDaysLeft >= 0) continue; }
+                    if (type == PrzypominajkaEventType.Standard) { if (status == 0 || TotalDaysLeft >= 0) continue;/*if (TotalDaysLeft >= 0) continue;*/ }
                     eventID = sqlite_datareader.GetInt32(0);
                     switch (type)
                     {
@@ -170,7 +170,7 @@ namespace Przypominajka_3._0
                     eExp = expDate.ToString("dd'/'MM'/'yyyy"),
                     eType = (PrzypominajkaEventType)sqlite_datareader.GetInt32(3),
                     eStatus = sqlite_datareader.GetInt32(4),
-                    eDAYS = (expDate - curDate).TotalDays          //TOTALDAYS!  
+                    eDAYS = (int)Math.Floor((expDate - curDate).TotalDays)         //TOTALDAYS!  
                 });
             }
             sqlite_conn.Close();

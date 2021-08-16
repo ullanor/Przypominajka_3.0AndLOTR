@@ -44,7 +44,7 @@ namespace Przypominajka_3._0
 
         public static List<LoadedEvent> CheckEvents()
         {
-            //MainManager.SQL.CheckDataFromTableEvents(); !!!
+            MainManager.SQL.CheckDataFromTableEvents(); 
             InitializeEventsList();
             return loadedEvents;
         }
@@ -57,8 +57,7 @@ namespace Przypominajka_3._0
         public String eExp { get; set; }
         public PrzypominajkaEventType eType { get; set; }
         public int eStatus { get; set; }
-
-        public double eDAYS { get; set; }//total days until expiration and date (INT)
+        public int eDAYS { get; set; }//total days until expiration and date (INT)
     }
 
     public enum PrzypominajkaEventType

@@ -93,6 +93,7 @@ namespace Przypominajka_3._0.Views
             dataGridEvents.ItemsSource = source;
             SetEventsControlsVisibility();
             MainManager.ChangeStatusInfo(true);
+            EventInfo.Text = EventsManager.loadedEvents.Count().ToString();
         }
     }
 }

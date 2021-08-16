@@ -19,7 +19,7 @@ namespace Przypominajka_3._0
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            input = (int)Math.Floor(double.Parse(value.ToString()));
+            input = int.Parse(value.ToString());
             if (input > 7)
                 return Brushes.LightGreen;
             if (input > 3)

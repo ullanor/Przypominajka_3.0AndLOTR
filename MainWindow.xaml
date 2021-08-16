@@ -7,6 +7,7 @@
         xmlns:viewmodels="clr-namespace:Przypominajka_3._0.ViewModels"
         xmlns:views="clr-namespace:Przypominajka_3._0.Views"
         mc:Ignorable="d"
+        Icon="/Assets/ULTRAicon.ico"
         Title="MT-pablo" Height="629.034" Width="1281.858" Loaded="WindowIsLoaded" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate x:Name="AddEventsViewTamplate" DataType="{x:Type viewmodels:EventsAddViewModel}">
