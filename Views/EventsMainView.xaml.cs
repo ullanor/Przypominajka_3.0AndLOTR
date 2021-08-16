@@ -24,13 +24,13 @@ namespace Przypominajka_3._0.Views
         public EventsMainView()
         {
             InitializeComponent();
-            boxik.Text = MainManager.testStr;
         }
 
         private void OnEventsViewLoaded(object sender, RoutedEventArgs e)
         {
             EventsManager.SelectedEvent = null;
             dataGridEvents.ItemsSource = EventsManager.loadedEvents;
+            EventInfo.Text = EventsManager.loadedEvents.Count().ToString();
         }
 
         private void OnEventSelected(object sender, SelectionChangedEventArgs e)
@@ -43,22 +43,19 @@ namespace Przypominajka_3._0.Views
         {
             bool visible = EventsManager.SelectedEvent != null;
 
-            //EditEventButton.IsEnabled = visible;
+            EditEventButton.IsEnabled = visible;
             MarkEventButton.IsEnabled = visible;
             RemoveEventButton.IsEnabled = visible;
-            EventInfo.IsEnabled = visible;
-            if (visible) EventInfo.Text = EventsManager.SelectedEvent.eName; else EventInfo.Text = string.Empty;       
+            UnMarkEventButton.IsEnabled = visible;    
         }
 
         private async void MarkEventButton_Click(object sender, RoutedEventArgs e)
         {
-            //dataGridEvents.ItemsSource = EventsManager.MarkSelectedEvent();
-            //SetEventsControlsVisibility();
-
+            bool markAsDone = (sender as Button).Name == MarkEventButton.Name;
             MainManager.ChangeStatusInfo(false);
             var source = await Task.Run(() =>
             {
-                return EventsManager.MarkSelectedEvent();
+                return EventsManager.MarkSelectedEvent(markAsDone);
             });
             dataGridEvents.ItemsSource = source;
             SetEventsControlsVisibility();
@@ -67,8 +64,8 @@ namespace Przypominajka_3._0.Views
 
         private async void RemoveEventButton_Click(object sender, RoutedEventArgs e)
         {
-            //dataGridEvents.ItemsSource = EventsManager.DeleteSelectedEvent();
-            //SetEventsControlsVisibility();
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult != MessageBoxResult.Yes) return;
 
             MainManager.ChangeStatusInfo(false);
             var source = await Task.Run(() =>
@@ -78,11 +75,12 @@ namespace Przypominajka_3._0.Views
             dataGridEvents.ItemsSource = source;
             SetEventsControlsVisibility();
             MainManager.ChangeStatusInfo(true);
+            EventInfo.Text = EventsManager.loadedEvents.Count().ToString();
         }
 
         private void EditEventButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MainManager.MainWindow.LoadEventsAddForEditing();
         }
 
         private async void CheckDataButton_Click(object sender, RoutedEventArgs e)

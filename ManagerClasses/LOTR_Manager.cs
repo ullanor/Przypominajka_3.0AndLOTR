@@ -23,7 +23,7 @@ namespace Przypominajka_3._0
             if (result == true)
             {
                 //Copy image
-                filePath = Path.Combine(SQLiteReferences.imagesDir,dlg.SafeFileName);
+                filePath = Path.Combine(MainManager.imagesDir,dlg.SafeFileName);
                 File.Copy(dlg.FileName, filePath, true);
             }
 
@@ -32,7 +32,7 @@ namespace Przypominajka_3._0
 
         public static void InitializeLOTRList()
         {
-            loadedLOTRs = MainManager.SQL.GetDataFromTableLOTR();
+            loadedLOTRs = MainManager.SQL_LOTR.GetDataFromTableLOTR();
         }
         public static List<LoadedLOTR> loadedLOTRs;
     }
@@ -57,5 +57,11 @@ namespace Przypominajka_3._0
     {
         public int lIssue { get; set; }
         public string limgSrc { get; set; }
+        public string lguide { get; set; }
+        public string lplay { get; set; }
+        public string lbattle { get; set; }
+        public string lpaint { get; set; }
+        public string lmodel { get; set; }
+        public string lextras { get; set; }
     }
 }

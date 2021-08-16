@@ -9,13 +9,27 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <TextBox Height="auto" Text="Add LOTR" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Green"/>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="StartTest" Content="Start MT Test" Focusable="False" FontSize="18" Height="50" Click="StartTest_Click"/>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <!--<Setter Property="Margin" Value="5,0,5,0"/>-->
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBox x:Name="IssueGuide" Text="Guide"/>
+            <TextBox x:Name="IssuePlay" Text="Play"/>
+            <TextBox x:Name="IssueBattle" Text="Battle"/>
+            <TextBox x:Name="IssuePaint" Text="Painting"/>
+            <TextBox x:Name="IssueModel" Text="Modelling"/>
+            <TextBox x:Name="IssueExtras" Text="Extras"/>
         </StackPanel>
+        <TextBox x:Name="IssueID" Grid.Row="2" Text="Issue ID" FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button x:Name="AddIssueButton" Grid.Row="3" Content="Choose IMG and Add" Focusable="False" FontSize="18" Height="50" Click="AddButton_Click" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>

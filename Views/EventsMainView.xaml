@@ -17,20 +17,30 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="boxik" Height="auto" Text="Events" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Green"/>
-        <Button x:Name="CheckDataButton" Content="Check Data" FontSize="16"  VerticalAlignment="Top" HorizontalAlignment="Right" Click="CheckDataButton_Click"/>
-        <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,5" HorizontalAlignment="Center" Orientation="Horizontal">
+        <TextBox x:Name="boxik" Height="auto" Text="Events" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Green"/>
+        <Button x:Name="CheckDataButton" Content="Check Data" FontSize="16"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="CheckDataButton_Click"/>
+        <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,5" HorizontalAlignment="Left" Orientation="Horizontal">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
                     <!--<Setter Property="Margin" Value="5,0,5,0"/>-->
                     <Setter Property="Focusable" Value="False"/>
                     <Setter Property="IsEnabled" Value="False"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
                 </Style>
             </StackPanel.Resources>
-            <TextBox x:Name="EventInfo" Text="Info" FontSize="16" IsEnabled="False"></TextBox>
-            <Button x:Name="RemoveEventButton" Content="Remove Event" FontSize="16" Width="200" Click="RemoveEventButton_Click"/>
-            <Button x:Name="MarkEventButton" Content="Mark As Done" FontSize="16" Width="200" Click="MarkEventButton_Click"/>
-            <Button x:Name="EditEventButton" Content="Edit Event" FontSize="16" Width="200" Click="EditEventButton_Click"/>
+            <Image Source="/Assets/BlueDefenderF.png" VerticalAlignment="Center" Margin="5,0,100,0"/>
+            <TextBox x:Name="EventInfo" Text="Info" FontSize="26" FontWeight="Bold"  Margin="5,0,50,0" IsReadOnly="True" Background="Black" VerticalAlignment="Center">
+                <TextBox.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFFFDC00" Offset="0"/>
+                        <GradientStop Color="#FFFFB900" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBox.Foreground>
+            </TextBox>
+            <Button x:Name="RemoveEventButton" Content="Remove Event" FontSize="20" Click="RemoveEventButton_Click"  Background="#FFDE4242"/>
+            <Button x:Name="EditEventButton" Content="Edit Event" FontSize="20"  Click="EditEventButton_Click" Background="#FF25CAE4"/>
+            <Button x:Name="MarkEventButton" Content="Mark Done" FontSize="20" Click="MarkEventButton_Click" Margin="50,0,0,0" Background="#FF1BD134"/>
+            <Button x:Name="UnMarkEventButton" Content="Unmark" FontSize="20" Click="MarkEventButton_Click" Background="#FFE4C32F"/>
         </StackPanel>
         <DataGrid Grid.RowSpan="3" Grid.Row="1" AutoGenerateColumns="False"  HorizontalAlignment="Left"  Name="dataGridEvents" VerticalAlignment="Top" IsReadOnly="True" SelectionChanged="OnEventSelected" FontSize="18" >
             <DataGrid.Columns>

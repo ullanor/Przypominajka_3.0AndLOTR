@@ -25,12 +25,34 @@ namespace Przypominajka_3._0.Views
             InitializeComponent();
         }
 
-        private void StartTest_Click(object sender, RoutedEventArgs e)
+        private void ClearFields()
+        {
+            IssueGuide.Text = "Guide";
+            IssuePlay.Text = "Play";
+            IssueBattle.Text = "Battle";
+            IssuePaint.Text = "Painting";
+            IssueModel.Text = "Modelling";
+            IssueExtras.Text = "Extras";
+            IssueID.Text = "Issue ID";
+        }
+        private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
             string imgSrc = LOTR_Manager.NewIssueImageFinder();
-            MainManager.SQL.InsertIntoTableLOTR(92, imgSrc);
-            LOTR_Manager.InitializeLOTRList();
-            MessageBox.Show(imgSrc);
+            MainManager.ChangeStatusInfo(false);
+            if (imgSrc == string.Empty) return;
+
+            int id = 0;
+            try { id = int.Parse(IssueID.Text); }catch(Exception ex) { MessageBox.Show(ex.ToString()); return; }
+            if(id < 1 || id > 91) { MessageBox.Show(id+" is not valid issue!"); return; }
+            string[] desc6 = { IssueGuide.Text, IssuePlay.Text, IssueBattle.Text, IssuePaint.Text, IssueModel.Text, IssueExtras.Text };
+            await Task.Run(() =>
+            {
+                MainManager.SQL_LOTR.ModifyTableLOTR(id, imgSrc, desc6);
+                LOTR_Manager.InitializeLOTRList();
+            });
+            ClearFields();
+            MessageBox.Show(id + " issue was added!");
+            MainManager.ChangeStatusInfo(true);
         }
     }
 }

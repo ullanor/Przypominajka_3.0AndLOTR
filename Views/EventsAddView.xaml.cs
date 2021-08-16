@@ -20,25 +20,40 @@ namespace Przypominajka_3._0.Views
     /// </summary>
     public partial class EventsAddView : UserControl
     {
+        private string ButtonSave = "Save Event";
+        private string ButtonModify = "Modify Event";
+        private bool eventIsModified;
+        private LoadedEvent evento;
         public EventsAddView()
         {
             InitializeComponent();
+            if (EventsManager.eventIsModified) { SetEditedEventData(); eventIsModified = true; }
         }
 
+        private void SetEditedEventData()
+        {
+            evento = EventsManager.SelectedEvent;
+            EventExpTime.SelectedDate = Convert.ToDateTime(evento.eExp);
+            EventType.SelectedItem = EventType.Items[(int)evento.eType];
+            EventName.Text = evento.eName;
+            SaveEventButton.Content = ButtonModify;
+        }
         private void ClearEventFields()
         {
             EventExpTime.SelectedDate = null;
             EventType.SelectedItem = null;
             EventName.Text = string.Empty;
+            SaveEventButton.Content = ButtonSave;
         }
         private void SaveEvent_Click(object sender, RoutedEventArgs e)
         {
             if (EventExpTime.SelectedDate != null && EventType.SelectedItem != null)
             {
                 DateTime dt;
-                if (!EventExpTime.SelectedDate.HasValue) dt = DateTime.Now;
-                else dt = (DateTime)EventExpTime.SelectedDate;
-                EventsManager.CreateNewEvent(EventName.Text, dt, (PrzypominajkaEventType)EventType.SelectedItem);
+                if (!EventExpTime.SelectedDate.HasValue) dt = DateTime.Now.Date;
+                else dt = ((DateTime)EventExpTime.SelectedDate).Date;
+                if (!eventIsModified) EventsManager.CreateNewEvent(EventName.Text, dt, (PrzypominajkaEventType)EventType.SelectedItem);
+                else EventsManager.ModifyEvent(EventName.Text, dt, (PrzypominajkaEventType)EventType.SelectedItem,evento.id);
                 ClearEventFields();
             }
         }

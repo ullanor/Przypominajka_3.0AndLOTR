@@ -1,6 +1,7 @@
 ﻿using Przypominajka_3._0.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace Przypominajka_3._0
             await Task.Run(() =>
             {
                 if(MainManager.SQL == null) MainManager.SQL = new SQLiteOperations();
-                MainManager.testStr = "HEJKA FROM WINGOD";
+                if (MainManager.SQL_LOTR == null) MainManager.SQL_LOTR = new SQLiteOperationsLOTR();
                 MainManager.MainWindow = this;
                 EventsManager.CheckEvents();
                 LOTR_Manager.InitializeLOTRList();
@@ -42,9 +43,14 @@ namespace Przypominajka_3._0
             testStatus.Text = MainManager.DefaultStatusText;
         }
 
+        public void LoadEventsAddForEditing()
+        {
+            EventsAdd_Click(null,null);
+        }
+
         private void WindowIsLoaded(object sender, RoutedEventArgs e)
         {
-            
+            DataContext = new EventsMainViewModel();
         }
 
         private void EventsView_Click(object sender, RoutedEventArgs e)
@@ -55,6 +61,7 @@ namespace Przypominajka_3._0
 
         private void EventsAdd_Click(object sender, RoutedEventArgs e)
         {
+            EventsManager.eventIsModified = sender == null;
             DataContext = new EventsAddViewModel();
         }
         private void LOTRView_Click(object sender, RoutedEventArgs e)
@@ -70,6 +77,21 @@ namespace Przypominajka_3._0
         private void autoStartChangeButton_Click(object sender, RoutedEventArgs e)
         {
             RegistryToggler.AutostartEditor();
+        }
+
+        private void goToResFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(MainManager.DBdirPath);
+        }
+
+        private async void saveCopyOfDBs_Click(object sender, RoutedEventArgs e)
+        {
+            testStatus.Text = MainManager.DefaultStatusTextWorking;
+            await Task.Run(() =>
+            {
+                MainManager.CopyDBsToDesktop();
+            });
+            testStatus.Text = MainManager.DefaultStatusText;
         }
     }
 }

@@ -99,7 +99,7 @@
     <Compile Include="MiscClasses\NameToBrushConverterRates.cs" />
     <Compile Include="MiscClasses\RegistryToggler.cs" />
     <Compile Include="SQLclasses\SQLiteOperations.cs" />
-    <Compile Include="SQLclasses\SQLiteReferences.cs" />
+    <Compile Include="SQLclasses\SQLiteOperationsLOTR.cs" />
     <Compile Include="StartupMainWindow.xaml.cs">
       <DependentUpon>StartupMainWindow.xaml</DependentUpon>
     </Compile>
@@ -183,9 +183,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\BlueDefenderF.png" />
-    <EmbeddedResource Include="Assets\nukalipsaLOGO.jpg" />
-    <EmbeddedResource Include="Assets\ULTRAicon.ico" />
+    <Resource Include="Assets\BlueDefenderF.png" />
+    <Resource Include="Assets\ULTRAicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -198,6 +197,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\oneRingSmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\LOTRrulebook.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\ULTRApng.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\oak.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

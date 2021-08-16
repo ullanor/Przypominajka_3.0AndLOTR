@@ -15,10 +15,11 @@ namespace Przypominajka_3._0
         }
         public static List<LoadedEvent> loadedEvents;
         public static LoadedEvent SelectedEvent;
+        public static bool eventIsModified;
 
-        public static List<LoadedEvent> MarkSelectedEvent()
+        public static List<LoadedEvent> MarkSelectedEvent(bool markAsDone)
         {
-            MainManager.SQL.ModifyRowInTableEvents(SelectedEvent.id);
+            MainManager.SQL.ModifyRowInTableEvents(SelectedEvent.id, markAsDone);
             InitializeEventsList();
             return loadedEvents;
         }
@@ -35,9 +36,15 @@ namespace Przypominajka_3._0
             InitializeEventsList();
         }
 
+        public static void ModifyEvent(string name, DateTime date, PrzypominajkaEventType type, int id)
+        {
+            MainManager.SQL.ModifyRowInTableEvents(name, date, type, id);
+            InitializeEventsList();
+        }
+
         public static List<LoadedEvent> CheckEvents()
         {
-            MainManager.SQL.CheckDataFromTableEvents();
+            //MainManager.SQL.CheckDataFromTableEvents(); !!!
             InitializeEventsList();
             return loadedEvents;
         }
@@ -51,6 +58,15 @@ namespace Przypominajka_3._0
         public PrzypominajkaEventType eType { get; set; }
         public int eStatus { get; set; }
 
-        public int eDAYS { get; set; }//total days until expiration and date
+        public double eDAYS { get; set; }//total days until expiration and date (INT)
+    }
+
+    public enum PrzypominajkaEventType
+    {
+        Standard,
+        Weekly,
+        Fortnightly,
+        Monthly,
+        Annual
     }
 }

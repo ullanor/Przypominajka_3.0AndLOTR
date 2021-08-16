@@ -8,13 +8,44 @@
              d:DesignHeight="450" d:DesignWidth="800" Background="#FFEAEAEA" Loaded="OnEventsViewLoaded">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="boxik" Height="auto" Text="LOTR" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Green"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="boxik" Grid.Column="3" Grid.Row="1" Height="auto" Text="LOTR" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Green"/>
+        <Image x:Name="IssueImagePrev" Grid.Row="1" Grid.Column="0" Source="/Assets/LOTRrulebook.jpg" Margin="0,0,10,0" VerticalAlignment="Top"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <!--<Setter Property="Margin" Value="5,0,5,0"/>-->
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                        <Setter Property="Margin" Value="0,0,0,25"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock x:Name="Guide" Text="Lotr SBG Deagostini Issues Collection" Foreground="#FF379322"/>
+                <TextBlock x:Name="Play" Foreground="#FF937422"/>
+                <TextBlock x:Name="Battle" Foreground="#FF932222"/>
+                <TextBlock x:Name="Paint" Foreground="#FF224193"/>
+                <TextBlock x:Name="Model" Foreground="#FF6F2293"/>
+            </StackPanel>
+        </ScrollViewer>
+        <TextBlock x:Name="IssueExtras" Grid.Row="1" Grid.Column="2" Text="Issue extras" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="18" TextWrapping="Wrap" Background="#FF020202">
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFFDC00" Offset="0"/>
+                    <GradientStop Color="#FFFFB900" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground></TextBlock>
         <!-- TABLE STARTS HERE -->
         <!-- STATUS TABLE CODE STARTS HERE -->
-        <DataGrid x:Name="testGrid" Grid.Row="1" FontSize="16" IsReadOnly="True" MouseDoubleClick="testGrid_MouseDoubleClick" MouseLeftButtonDown="TEdt" SelectionUnit="Cell">
+        <DataGrid x:Name="testGrid" Grid.Row="2" Grid.ColumnSpan="3" FontSize="16" IsReadOnly="True" SelectionUnit="Cell" SelectedCellsChanged="OnEventSelected">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="Turquoise"/>

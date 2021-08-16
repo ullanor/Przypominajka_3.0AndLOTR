@@ -6,15 +6,19 @@
         xmlns:local="clr-namespace:Przypominajka_3._0"
         mc:Ignorable="d"
         Title="PrzypominajkaINFO" 
-        Height="222.167" Width="516.666" WindowStyle="None" BorderThickness="0">
+        Height="222" Width="516" WindowStyle="None" ResizeMode="NoResize" BorderThickness="5" BorderBrush="AliceBlue">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.3,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFA0C6D1" Offset="0"/>
+            <GradientStop Color="#FFFFFFC3" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid x:Name="Okno">
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.3,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFA0C6D1" Offset="0"/>
-                <GradientStop Color="#FFFFFFC3" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Left" Margin="413,20,0,0" VerticalAlignment="Top" Width="83" Click="Exit_Click" Height="68" FontSize="24" FontWeight="Bold">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition Width="399*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Left" Margin="304,20,0,0" VerticalAlignment="Top" Width="83" Click="Exit_Click" Height="68" FontSize="24" FontWeight="Bold" Grid.Column="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="Red" Offset="0"/>
@@ -22,10 +26,10 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="MoveToMain" Content="Move to Main Window" HorizontalAlignment="Left" Margin="5,151,0,10" Width="398" Click="MoveToMain_Click" FontSize="24" FontWeight="Bold" FontFamily="Times New Roman" Foreground="#FF170FB6"/>
-        <TextBlock x:Name="eventsInfo" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="141" Width="393" FontSize="24" Foreground="#FF990B0B" FontFamily="Times New Roman" FontWeight="Bold"/>
-        <Image x:Name="obrazek" HorizontalAlignment="Left" Height="82" Margin="413,106,0,0" VerticalAlignment="Top" Width="83" Source="Assets/nukalipsaLOGO.jpg"/>
-        <TextBlock x:Name="przyp" HorizontalAlignment="Left" Margin="413,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"><Run Text="Przypominajka"/></TextBlock>
-        <Border BorderBrush="#FF4263D3" BorderThickness="1" HorizontalAlignment="Left" Height="141" VerticalAlignment="Top" Width="398" Margin="5,5,0,0"/>
+        <Button x:Name="MoveToMain" Content="Move to Main Window" HorizontalAlignment="Left" Margin="5,151,0,10" Width="398" Click="MoveToMain_Click" FontSize="24" FontWeight="Bold" FontFamily="Times New Roman" Foreground="#FF170FB6" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="eventsInfo" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="141" Width="393" FontSize="24" Foreground="#FF990B0B" FontFamily="Times New Roman" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Image x:Name="obrazek" HorizontalAlignment="Left" Height="82" Margin="304,115,0,0" VerticalAlignment="Top" Width="83" Source="Assets/ULTRApng.png" Grid.Column="1"/>
+        <TextBlock x:Name="przyp" HorizontalAlignment="Left" Margin="304,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" Text="Przypominajka" Grid.Column="1"/>
+        <Border BorderBrush="#FF4263D3" BorderThickness="1" HorizontalAlignment="Left" Height="141" VerticalAlignment="Top" Width="398" Margin="5,5,0,0" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

@@ -25,7 +25,6 @@ namespace Przypominajka_3._0.Views
         public LOTRView()
         {
             InitializeComponent();
-            boxik.Text = MainManager.testStr;
         }
 
         //private async Task<List<Item>> GetListAsync()
@@ -68,18 +67,6 @@ namespace Przypominajka_3._0.Views
             }
         }
 
-        private void testGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                int ColumnNo = testGrid.CurrentCell.Column.DisplayIndex;
-                int RowNo = int.Parse((testGrid.CurrentCell.Item as TableValues).lp);
-                int number = RowNo*10 + ColumnNo -1;
-                boxik.Text = RowNo + " col: "+ ColumnNo + " ImgSrc: "+ LOTR_Manager.loadedLOTRs[number].limgSrc;
-            }
-            catch (Exception ex) { boxik.Text = ex.ToString(); }
-        }
-
         private async void OnEventsViewLoaded(object sender, RoutedEventArgs e)
         {
             MainManager.ChangeStatusInfo(false);
@@ -90,14 +77,25 @@ namespace Przypominajka_3._0.Views
             MainManager.ChangeStatusInfo(true);
         }
 
-        private void TEdt(object sender, MouseButtonEventArgs e)
+        private void OnEventSelected(object sender, SelectedCellsChangedEventArgs e)
         {
-            //TableValues selected = (TableValues)testGrid.SelectedItem;
-            //MessageBox.Show("DUPA "+selected.);
-           // var cellInfo = testGrid.SelectedCells[int.Parse(testGrid.CurrentCell.Column.Header.ToString())];
-           // TextBlock tb = cellInfo.Column.GetCellContent(cellInfo.Item) as TextBlock;
-           // MessageBox.Show(tb.Text);
-            //    myText.Text = tb.Text;
+            try
+            {
+                int ColumnNo = testGrid.CurrentCell.Column.DisplayIndex;
+                int RowNo = int.Parse((testGrid.CurrentCell.Item as TableValues).lp);
+                int number = RowNo * 10 + ColumnNo - 1;
+                //boxik.Text = RowNo + " col: "+ ColumnNo + " ImgSrc: "+ LOTR_Manager.loadedLOTRs[number].limgSrc;
+                LoadedLOTR loaded = LOTR_Manager.loadedLOTRs[number];
+
+                IssueImagePrev.Source = new BitmapImage(new Uri(loaded.limgSrc));
+                Guide.Text = $"Guide: {loaded.lguide}";
+                Play.Text = $"Play: {loaded.lplay}";
+                Battle.Text = $"Battle: {loaded.lbattle}";
+                Paint.Text = $"Painting: {loaded.lpaint}";
+                Model.Text = $"Modelling: {loaded.lmodel}";
+                IssueExtras.Text = $"Extra: {loaded.lextras}";
+            }
+            catch (Exception) { /*boxik.Text = ex.ToString();*/ }
         }
     }
 }

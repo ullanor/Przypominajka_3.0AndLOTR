@@ -22,16 +22,16 @@
             <views:LOTRView DataContext="{Binding}"/>
         </DataTemplate>
     </Window.Resources>
-    <!--<Window.Background>
+    <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFAAD8EE" Offset="0"/>
             <GradientStop Color="#FF21B912" Offset="1"/>
-            <GradientStop Color="#FFD6F9FF" Offset="0.723"/>
-            <GradientStop Color="#FF4ABD64" Offset="0.73"/>
+            <GradientStop Color="#FFD6F9FF" Offset="0.81"/>
+            <GradientStop Color="#FF4ABD64" Offset="0.813"/>
             <GradientStop Color="#FF41D4FF" Offset="0.43"/>
             <GradientStop Color="#FF0F9E22" Offset="0.857"/>
         </LinearGradientBrush>
-    </Window.Background>-->
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -39,10 +39,10 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
-            <TextBlock x:Name="menuText" Text="Set MT conn credentials before testing" FontSize="20" Width="auto"/>
+            <TextBlock x:Name="menuText" Text="Events Reminder and LOTR collection holder!" FontSize="20" Width="auto"/>
         </StackPanel>
         <!-- action buttons -->
         <StackPanel Margin="5,0,5,0" Grid.Row="1">
@@ -51,7 +51,10 @@
             <Button x:Name="LOTRview" Content="LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRView_Click"/>
             <Button x:Name="LOTRaddView" Content="Add LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRadd_Click"/>
             <TextBox x:Name="testStatus" Height="auto" Text="FALSE" FontSize="18" FontWeight="Bold" TextAlignment="Center" Background="White" Margin="0,50,0,0" IsReadOnly="True"/>
-            <Button x:Name="autoStartChangeButton" Content="Toggle Autostart" FontSize="20" Focusable="False" Height="50" Click="autoStartChangeButton_Click"/>
+            <Button x:Name="autoStartChangeButton" Content="Toggle Autostart" FontSize="18" Focusable="False" Height="30" Click="autoStartChangeButton_Click"/>
+            <Button x:Name="goToResFolder" Content="App Folder" FontSize="18" Focusable="False" Height="30" Click="goToResFolder_Click"/>
+            <Button x:Name="saveCopyOfDBs" Content="Backup To Desktop" FontSize="16" Focusable="False" Height="30" Click="saveCopyOfDBs_Click"/>
+            <Image Source="/Assets/oak.png" Margin="30,0,0,0"/>
             <!--<TextBox x:Name="testTime" Height="auto" FontSize="18" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True"/>
             <Button x:Name="clearButton" Content="rxBytes" FontSize="16" Focusable="False" Height="auto" Click="clearButton_Click"/>-->
         </StackPanel>

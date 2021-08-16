@@ -17,11 +17,10 @@ namespace Przypominajka_3._0
         SQLiteConnection sqlite_conn;
         public SQLiteOperations()
         {
-            System.IO.Directory.CreateDirectory(SQLiteReferences.DBdirPath);
-            System.IO.Directory.CreateDirectory(SQLiteReferences.imagesDir);
-            if (!System.IO.File.Exists(SQLiteReferences.DBpath))
+            System.IO.Directory.CreateDirectory(MainManager.DBdirPath);
+            System.IO.Directory.CreateDirectory(MainManager.imagesDir);
+            if (!System.IO.File.Exists(MainManager.DBpath))
             {
-                SQLiteReferences.ExtractFileResource("Przypominajka_3._0.Assets.nukalipsaLOGO.jpg", SQLiteReferences.standardImage);
                 sqlite_conn = CreateConnection();
                 CreateDataTable();
                 sqlite_conn.Close();
@@ -29,7 +28,7 @@ namespace Przypominajka_3._0
         }
         SQLiteConnection CreateConnection()
         {
-            sqlite_conn = new SQLiteConnection($"Data Source={SQLiteReferences.DBpath}; Version = 3; New = True; Compress = True; ");
+            sqlite_conn = new SQLiteConnection($"Data Source={MainManager.DBpath}; Version = 3; New = True; Compress = True; ");
             // Open the connection:
             try
             {
@@ -56,19 +55,6 @@ namespace Przypominajka_3._0
             sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
-
-            //LOTR
-            Createsql = "CREATE TABLE IF NOT EXISTS PrzypominajkaLOTR(" +
-                "issue INT NOT NULL UNIQUE," +
-                "imgSrc TEXT" +
-                ");";
-            sqlite_cmd = sqlite_conn.CreateCommand();
-            sqlite_cmd.CommandText = Createsql;
-            sqlite_cmd.ExecuteNonQuery();
-            for (int i = 1; i <= 91; i++)
-            {
-                ExecuteSQLCommand($"INSERT INTO PrzypominajkaLOTR(issue, imgSrc) VALUES('{i}','{SQLiteReferences.standardImage}'); ");
-            }
         }
 
         void ExecuteSQLCommand(string cmd)
@@ -82,16 +68,16 @@ namespace Przypominajka_3._0
         #endregion
         //EVENTS TABLE
         #region EVENTStable
-        public void ModifyRowInTableEvents(string name, DateTime expDate, PrzypominajkaEventType type, bool status, int id)
+        public void ModifyRowInTableEvents(string name, DateTime expDate, PrzypominajkaEventType type, int id)
         {
             sqlite_conn = CreateConnection();
-            ExecuteSQLCommand($"UPDATE PrzypominajkaEvents SET name='{name}',expirationDate='{expDate.ToString("yyyy-MM-dd'T'hh:mm:ss.fff")}',type='{(int)type}',status='{(status ? 1 : 0)}' WHERE eventID='{id}';");
+            ExecuteSQLCommand($"UPDATE PrzypominajkaEvents SET name='{name}',expirationDate='{expDate.ToString("yyyy-MM-dd'T'hh:mm:ss.fff")}',type='{(int)type}' WHERE eventID='{id}';");
             sqlite_conn.Close();
         }
-        public void ModifyRowInTableEvents(int id)
+        public void ModifyRowInTableEvents(int id, bool markAsDone)
         {
             sqlite_conn = CreateConnection();
-            ExecuteSQLCommand($"UPDATE PrzypominajkaEvents SET status='{1}' WHERE eventID='{id}';");
+            ExecuteSQLCommand($"UPDATE PrzypominajkaEvents SET status='{(markAsDone? 1: 0)}' WHERE eventID='{id}';");
             sqlite_conn.Close();
         }
         public void DeleteRowInTableEvents(int id)
@@ -126,7 +112,7 @@ namespace Przypominajka_3._0
             sqlite_datareader = sqlite_cmd.ExecuteReader();
 
             DateTime expDate;
-            DateTime curDate = DateTime.Now;
+            DateTime curDate = DateTime.Now.Date;
             int TotalDaysLeft;
             PrzypominajkaEventType type;
             int status;
@@ -134,7 +120,7 @@ namespace Przypominajka_3._0
             while (sqlite_datareader.Read())
             {
                 expDate = Convert.ToDateTime(sqlite_datareader.GetString(2));
-                TotalDaysLeft = (int)Math.Floor((expDate - curDate).TotalDays);
+                TotalDaysLeft = (int)Math.Floor((expDate - curDate).TotalDays);              //TOTALDAYS!
                 status = sqlite_datareader.GetInt32(4);
                 if (TotalDaysLeft < 0 || status == 1)
                 {
@@ -173,7 +159,7 @@ namespace Przypominajka_3._0
             sqlite_datareader = sqlite_cmd.ExecuteReader();
 
             DateTime expDate;
-            DateTime curDate = DateTime.Now;
+            DateTime curDate = DateTime.Now.Date;
             while (sqlite_datareader.Read())
             {
                 expDate = Convert.ToDateTime(sqlite_datareader.GetString(2));
@@ -184,45 +170,11 @@ namespace Przypominajka_3._0
                     eExp = expDate.ToString("dd'/'MM'/'yyyy"),
                     eType = (PrzypominajkaEventType)sqlite_datareader.GetInt32(3),
                     eStatus = sqlite_datareader.GetInt32(4),
-                    eDAYS = (int)Math.Floor((expDate - curDate).TotalDays)             
+                    eDAYS = (expDate - curDate).TotalDays          //TOTALDAYS!  
                 });
             }
             sqlite_conn.Close();
             return loadedEvents;
-        }
-        #endregion
-        //LOTR table
-        #region LOTRtable
-        public void InsertIntoTableLOTR(int issue, string imgSrc)
-        {
-            sqlite_conn = CreateConnection();
-            ExecuteSQLCommand($"INSERT INTO PrzypominajkaLOTR(issue, imgSrc) VALUES('{issue}','{imgSrc}'); ");
-            sqlite_conn.Close();
-        }
-
-        public List<LoadedLOTR> GetDataFromTableLOTR()
-        {
-            List<LoadedLOTR> loadedLOTRs = new List<LoadedLOTR>();
-            sqlite_conn = CreateConnection();
-            SQLiteDataReader sqlite_datareader;
-            SQLiteCommand sqlite_cmd;
-            sqlite_cmd = sqlite_conn.CreateCommand();
-            sqlite_cmd.CommandText = "SELECT * FROM PrzypominajkaLOTR;";// where rowid=2 (counter for ID)
-            sqlite_cmd.ExecuteNonQuery();
-
-            sqlite_datareader = sqlite_cmd.ExecuteReader();
-            short i = 1;
-            while (sqlite_datareader.Read())
-            {
-                loadedLOTRs.Add(new LoadedLOTR()
-                {
-                    lIssue = sqlite_datareader.GetInt32(0),
-                    limgSrc = sqlite_datareader.GetString(1)
-                });
-                i++;
-            }
-            sqlite_conn.Close();
-            return loadedLOTRs;
         }
         #endregion
     }
