@@ -40,6 +40,7 @@ namespace Przypominajka_3._0
                 EventsManager.CheckEvents();
                 LOTR_Manager.InitializeLOTRList();
             });
+            DataContext = new EventsMainViewModel();
             testStatus.Text = MainManager.DefaultStatusText;
         }
 
@@ -50,7 +51,7 @@ namespace Przypominajka_3._0
 
         private void WindowIsLoaded(object sender, RoutedEventArgs e)
         {
-            DataContext = new EventsMainViewModel();
+            //DataContext = new EventsMainViewModel();
         }
 
         private void EventsView_Click(object sender, RoutedEventArgs e)
