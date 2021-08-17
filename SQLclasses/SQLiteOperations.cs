@@ -65,13 +65,22 @@ namespace Przypominajka_3._0
             sqlite_cmd.CommandText = cmd;
             sqlite_cmd.ExecuteNonQuery();
         }
+        void ExecuteSQLCommandWithNameParameter(string cmd, string name)
+        {
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = sqlite_conn.CreateCommand();
+
+            sqlite_cmd.CommandText = cmd;
+            sqlite_cmd.Parameters.AddWithValue("$name", name);
+            sqlite_cmd.ExecuteNonQuery();
+        }
         #endregion
         //EVENTS TABLE
         #region EVENTStable
         public void ModifyRowInTableEvents(string name, DateTime expDate, PrzypominajkaEventType type, int id)
         {
             sqlite_conn = CreateConnection();
-            ExecuteSQLCommand($"UPDATE PrzypominajkaEvents SET name='{name}',expirationDate='{expDate.ToString("yyyy-MM-dd'T'hh:mm:ss.fff")}',type='{(int)type}' WHERE eventID='{id}';");
+            ExecuteSQLCommandWithNameParameter($"UPDATE PrzypominajkaEvents SET name=$name,expirationDate='{expDate.ToString("yyyy-MM-dd'T'hh:mm:ss.fff")}',type='{(int)type}' WHERE eventID='{id}';",name);
             sqlite_conn.Close();
         }
         public void ModifyRowInTableEvents(int id, bool markAsDone)
@@ -90,7 +99,7 @@ namespace Przypominajka_3._0
         public void InsertIntoTableEvents(string name, DateTime expDate, PrzypominajkaEventType type, bool status)
         {
             sqlite_conn = CreateConnection();
-            ExecuteSQLCommand($"INSERT INTO PrzypominajkaEvents(name, expirationDate, type, status) VALUES('{name}','{expDate.ToString("yyyy-MM-dd'T'hh:mm:ss.fff")}','{(int)type}','{(status ? 1 : 0)}'); ");
+            ExecuteSQLCommandWithNameParameter($"INSERT INTO PrzypominajkaEvents(name, expirationDate, type, status) VALUES($name,'{expDate.ToString("yyyy-MM-dd'T'hh:mm:ss.fff")}','{(int)type}','{(status ? 1 : 0)}'); ",name);
             sqlite_conn.Close();
         }
 
