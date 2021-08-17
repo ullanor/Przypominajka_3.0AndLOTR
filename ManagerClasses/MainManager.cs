@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace Przypominajka_3._0
 {
     public static class MainManager
@@ -26,17 +27,6 @@ namespace Przypominajka_3._0
 
         public static void CopyDBsToDesktop()
         {
-            //try
-            //{
-            //    string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\PrzypominajkaDB_COPY.db";
-            //    File.Copy(DBpath, path, true);
-            //    path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\LOTRdeagostiniDB_COPY.db";
-            //    File.Copy(DBpathLOTR, path, true);
-            //}
-            //catch (Exception ex) 
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
             string pather = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\PrzypominajkaDirectory_COPY";
             Directory.CreateDirectory(pather);
 
@@ -78,6 +68,11 @@ namespace Przypominajka_3._0
             {
                 throw new Exception(string.Format("Can't extract resource '{0}' to file '{1}': {2}", resource_name, file_name, ex.Message), ex);
             }
+        }
+
+        public static void CreateDesktopShortcut()
+        {
+            new ShortCutCreator();
         }
     }
 }

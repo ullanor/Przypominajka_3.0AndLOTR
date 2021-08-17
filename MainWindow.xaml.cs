@@ -107,7 +107,7 @@ namespace Przypominajka_3._0
 
         private void createDesktopShortcut_Click(object sender, RoutedEventArgs e)
         {
-
+            MainManager.CreateDesktopShortcut();
         }
     }
 }
