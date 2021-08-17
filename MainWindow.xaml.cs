@@ -49,6 +49,16 @@ namespace Przypominajka_3._0
             EventsAdd_Click(null,null);
         }
 
+        public void LoadLOTRaddForEditing()
+        {
+            LOTRadd_Click(null, null);
+        }
+
+        public void LoadLOTRviewAfterEdit()
+        {
+            LOTRView_Click(null, null);
+        }
+
         private void WindowIsLoaded(object sender, RoutedEventArgs e)
         {
             //DataContext = new EventsMainViewModel();
@@ -67,11 +77,11 @@ namespace Przypominajka_3._0
         }
         private void LOTRView_Click(object sender, RoutedEventArgs e)
         {
-            //testStatus.Text = "LOADING";
             DataContext = new LOTRViewModel();
         }
         private void LOTRadd_Click(object sender, RoutedEventArgs e)
         {
+            LOTR_Manager.LoadedIssueIsModified = sender == null;
             DataContext = new LOTRAddViewModel();
         }
 
@@ -93,6 +103,11 @@ namespace Przypominajka_3._0
                 MainManager.CopyDBsToDesktop();
             });
             testStatus.Text = MainManager.DefaultStatusText;
+        }
+
+        private void createDesktopShortcut_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

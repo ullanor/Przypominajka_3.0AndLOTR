@@ -29,7 +29,7 @@
             <TextBox x:Name="IssueModel" Text="Modelling"/>
             <TextBox x:Name="IssueExtras" Text="Extras"/>
         </StackPanel>
-        <TextBox x:Name="IssueID" Grid.Row="2" Text="Issue ID" FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox x:Name="IssueID" Grid.Row="2" Text="Issue ID" FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center" IsReadOnly="True"/>
         <Button x:Name="AddIssueButton" Grid.Row="3" Content="Choose IMG and Add" Focusable="False" FontSize="18" Height="50" Click="AddButton_Click" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>

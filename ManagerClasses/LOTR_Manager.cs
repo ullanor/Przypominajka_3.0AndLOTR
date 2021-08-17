@@ -4,18 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Przypominajka_3._0
 {
     class LOTR_Manager
     {
-        public static string NewIssueImageFinder()
+        public static bool LoadedIssueIsModified;
+        public static LoadedLOTR selectedLOTR;
+        public static string NewIssueImageFinder(bool isIssueLoaded)
         {
             string filePath = string.Empty;
 
             // Configure open file dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
+            if (isIssueLoaded) dlg.InitialDirectory = MainManager.imagesDir;
+            dlg.Filter = "Images (*.png *.jpg *.jpeg)|*.png;*.jpg;*.jpeg|All files (*.*)|*.*";
             // Show open file dialog box
             Nullable<bool> result = dlg.ShowDialog();
 
@@ -24,6 +28,7 @@ namespace Przypominajka_3._0
             {
                 //Copy image
                 filePath = Path.Combine(MainManager.imagesDir,dlg.SafeFileName);
+                if (File.Exists(filePath)) { MessageBox.Show("This Image is already in the directory!"); return filePath; }
                 File.Copy(dlg.FileName, filePath, true);
             }
 

@@ -15,7 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.6*"/>
         </Grid.ColumnDefinitions>
         <TextBox x:Name="boxik" Grid.Column="3" Grid.Row="1" Height="auto" Text="LOTR" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Green"/>
         <Image x:Name="IssueImagePrev" Grid.Row="1" Grid.Column="0" Source="/Assets/LOTRrulebook.jpg" Margin="0,0,10,0" VerticalAlignment="Top"/>
@@ -36,6 +36,8 @@
                 <TextBlock x:Name="Model" Foreground="#FF6F2293"/>
             </StackPanel>
         </ScrollViewer>
+        <TextBlock x:Name="IssueNo" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
+        <Button x:Name="EditIssueButton" Content="Edit Issue" Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Click="EditIssueButton_Click" IsEnabled="False" Background="#FFFFFDDA"/>
         <TextBlock x:Name="IssueExtras" Grid.Row="1" Grid.Column="2" Text="Issue extras" VerticalAlignment="Center" Margin="10,0,10,0" FontSize="18" TextWrapping="Wrap" Background="#FF020202">
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

@@ -20,11 +20,24 @@ namespace Przypominajka_3._0.Views
     /// </summary>
     public partial class LOTRAddView : UserControl
     {
+        private bool isIssueLoaded;
         public LOTRAddView()
         {
             InitializeComponent();
+            if(LOTR_Manager.LoadedIssueIsModified) { SetEditedIssueData(); }
         }
-
+        private void SetEditedIssueData()
+        {
+            LoadedLOTR loaded = LOTR_Manager.selectedLOTR;
+            IssueGuide.Text = loaded.lguide == string.Empty? "Guide" : loaded.lguide;
+            IssuePlay.Text = loaded.lplay == string.Empty ? "Play" : loaded.lplay;
+            IssueBattle.Text = loaded.lbattle == string.Empty ? "Battle" : loaded.lbattle;
+            IssuePaint.Text = loaded.lpaint == string.Empty ? "Painting" : loaded.lpaint;
+            IssueModel.Text = loaded.lmodel == string.Empty ? "Modelling" : loaded.lmodel;
+            IssueExtras.Text = loaded.lextras == string.Empty ? "Extras" : loaded.lextras;
+            IssueID.Text = loaded.lIssue.ToString();
+            isIssueLoaded = true;
+        }
         private void ClearFields()
         {
             IssueGuide.Text = "Guide";
@@ -37,7 +50,7 @@ namespace Przypominajka_3._0.Views
         }
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            string imgSrc = LOTR_Manager.NewIssueImageFinder();
+            string imgSrc = LOTR_Manager.NewIssueImageFinder(isIssueLoaded);
             MainManager.ChangeStatusInfo(false);
             if (imgSrc == string.Empty) return;
 
@@ -50,9 +63,10 @@ namespace Przypominajka_3._0.Views
                 MainManager.SQL_LOTR.ModifyTableLOTR(id, imgSrc, desc6);
                 LOTR_Manager.InitializeLOTRList();
             });
-            ClearFields();
+            //ClearFields();
             MessageBox.Show(id + " issue was added!");
             MainManager.ChangeStatusInfo(true);
+            MainManager.MainWindow.LoadLOTRviewAfterEdit();//CLOSE USER CONTROL! -> BACK TO MAIN LOTR VIEW
         }
     }
 }

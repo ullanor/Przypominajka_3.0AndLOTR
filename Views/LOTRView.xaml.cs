@@ -25,13 +25,9 @@ namespace Przypominajka_3._0.Views
         public LOTRView()
         {
             InitializeComponent();
+            LOTR_Manager.selectedLOTR = null;
         }
 
-        //private async Task<List<Item>> GetListAsync()
-        //{
-        //    List<Item> list = await Task.Run(() => manager.GetList());
-        //    return list;
-        //}
         private void FillTable()
         {
             int numberOfRecords = LOTR_Manager.loadedLOTRs.Count;//91 
@@ -94,8 +90,17 @@ namespace Przypominajka_3._0.Views
                 Paint.Text = $"Painting: {loaded.lpaint}";
                 Model.Text = $"Modelling: {loaded.lmodel}";
                 IssueExtras.Text = $"Extra: {loaded.lextras}";
+
+                LOTR_Manager.selectedLOTR = loaded;
+                EditIssueButton.IsEnabled = true;
+                IssueNo.Text = loaded.lIssue.ToString();
             }
             catch (Exception) { /*boxik.Text = ex.ToString();*/ }
+        }
+
+        private void EditIssueButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainManager.MainWindow.LoadLOTRaddForEditing();
         }
     }
 }

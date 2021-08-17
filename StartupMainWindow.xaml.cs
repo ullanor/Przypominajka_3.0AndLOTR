@@ -46,6 +46,7 @@ namespace Przypominajka_3._0
             int todayCount = 0;
             foreach(LoadedEvent evento in events)
             {
+                if (evento.eDAYS < 0) continue;
                 if (evento.eDAYS == 0) { todayCount++; continue; }
                 if (evento.eDAYS < 3) { lessThan3DaysCount++; continue; }
             }
