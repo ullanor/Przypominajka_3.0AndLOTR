@@ -70,8 +70,11 @@ namespace Przypominajka_3._0
         public void ModifyTableLOTR(int issue, string imgSrc, string[] desc6)
         {
             sqlite_conn = CreateConnectionLOTR();
-            ExecuteSQLCommand($"UPDATE LOTRdeagostiniIssues SET imgSrc='{imgSrc}'," +
-                $"guide='{desc6[0]}',play='{desc6[1]}',battle='{desc6[2]}',paint='{desc6[3]}',model='{desc6[4]}',extras='{desc6[5]}'  WHERE issue='{issue}'; ");
+            //ExecuteSQLCommand($"UPDATE LOTRdeagostiniIssues SET imgSrc='{imgSrc}'," +
+            //    $"guide='{desc6[0]}',play='{desc6[1]}',battle='{desc6[2]}',paint='{desc6[3]}',model='{desc6[4]}',extras='{desc6[5]}'  WHERE issue='{issue}'; ");
+
+            ExecuteSQLCommandWithNameParameters($"UPDATE LOTRdeagostiniIssues SET imgSrc='{imgSrc}'," +
+                    $"guide=$guide,play=$play,battle=$battle,paint=$paint,model=$model,extras=$extras  WHERE issue='{issue}'; ",desc6);
             sqlite_conn.Close();
         }
 
@@ -112,6 +115,20 @@ namespace Przypominajka_3._0
             sqlite_cmd = sqlite_conn.CreateCommand();
 
             sqlite_cmd.CommandText = cmd;
+            sqlite_cmd.ExecuteNonQuery();
+        }
+        void ExecuteSQLCommandWithNameParameters(string cmd, string[] desc6)
+        {
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = sqlite_conn.CreateCommand();
+
+            sqlite_cmd.CommandText = cmd;
+            sqlite_cmd.Parameters.AddWithValue("$guide", desc6[0]);
+            sqlite_cmd.Parameters.AddWithValue("$play", desc6[1]);
+            sqlite_cmd.Parameters.AddWithValue("$battle", desc6[2]);
+            sqlite_cmd.Parameters.AddWithValue("$paint", desc6[3]);
+            sqlite_cmd.Parameters.AddWithValue("$model", desc6[4]);
+            sqlite_cmd.Parameters.AddWithValue("$extras", desc6[5]);
             sqlite_cmd.ExecuteNonQuery();
         }
     }
