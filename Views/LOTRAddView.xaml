@@ -31,5 +31,6 @@
         </StackPanel>
         <TextBox x:Name="IssueID" Grid.Row="2" Text="Issue ID" FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center" IsReadOnly="True"/>
         <Button x:Name="AddIssueButton" Grid.Row="3" Content="Choose IMG and Add" Focusable="False" FontSize="18" Height="50" Click="AddButton_Click" HorizontalAlignment="Center"/>
+        <Button x:Name="CloseButton" Grid.Row="3" Content="Close Panel" Focusable="False" FontSize="14" Height="20" HorizontalAlignment="Right" Click="CloseButton_Click"/>
     </Grid>
 </UserControl>
