@@ -47,6 +47,7 @@ namespace Przypominajka_3._0.Views
             IssueModel.Text = "Modelling";
             IssueExtras.Text = "Extras";
             IssueID.Text = "Issue ID";
+            IssueID.IsReadOnly = false;
         }
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -66,7 +67,9 @@ namespace Przypominajka_3._0.Views
             //ClearFields();
             MessageBox.Show(id + " issue was added!");
             MainManager.ChangeStatusInfo(true);
-            //MainManager.MainWindow.LoadLOTRviewAfterEdit();//CLOSE USER CONTROL! -> BACK TO MAIN LOTR VIEW
+
+
+            ClearFields(); // => MainManager.MainWindow.LoadLOTRviewAfterEdit();//CLOSE USER CONTROL! -> BACK TO MAIN LOTR VIEW
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
