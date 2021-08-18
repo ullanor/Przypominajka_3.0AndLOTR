@@ -25,7 +25,8 @@ namespace Przypominajka_3._0
         public MainWindow()
         {
             InitializeComponent();
-            testStatus.Text = MainManager.DefaultStatusTextWorking;
+            //testStatus.Text = MainManager.DefaultStatusTextWorking;
+            loadingGif.Visibility = Visibility.Visible;
 
             LoadData();
         }
@@ -41,7 +42,8 @@ namespace Przypominajka_3._0
                 LOTR_Manager.InitializeLOTRList();
             });
             DataContext = new EventsMainViewModel();
-            testStatus.Text = MainManager.DefaultStatusText;
+            //testStatus.Text = MainManager.DefaultStatusText;
+            loadingGif.Visibility = Visibility.Hidden;
         }
 
         public void LoadEventsAddForEditing()
@@ -97,12 +99,14 @@ namespace Przypominajka_3._0
 
         private async void saveCopyOfDBs_Click(object sender, RoutedEventArgs e)
         {
-            testStatus.Text = MainManager.DefaultStatusTextWorking;
+            //testStatus.Text = MainManager.DefaultStatusTextWorking;
+            loadingGif.Visibility = Visibility.Visible;
             await Task.Run(() =>
             {
                 MainManager.CopyDBsToDesktop();
             });
-            testStatus.Text = MainManager.DefaultStatusText;
+            //testStatus.Text = MainManager.DefaultStatusText;
+            loadingGif.Visibility = Visibility.Hidden;
         }
 
         private void createDesktopShortcut_Click(object sender, RoutedEventArgs e)

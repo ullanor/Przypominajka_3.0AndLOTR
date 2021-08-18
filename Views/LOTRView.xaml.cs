@@ -28,19 +28,18 @@ namespace Przypominajka_3._0.Views
             LOTR_Manager.selectedLOTR = null;
         }
 
-        private void FillTable()
+        private Task<TableValues> FillTable(int i)
         {
-            int numberOfRecords = LOTR_Manager.loadedLOTRs.Count;//91 
-            int units = 0;
-            if (numberOfRecords % 10 == 0) units = numberOfRecords / 10;
-            else units = (numberOfRecords / 10) + 1;
-            int rest = Math.Abs(numberOfRecords - units * 10);
-            for (int i = 0; i < rest; i++)
-                LOTR_Manager.loadedLOTRs.Add(new LoadedLOTR());
-
-            
             TableValues TV;
-            for (int i = 0; i < units; i++)
+            if (i == 9)
+            {
+                TV = new TableValues
+                {
+                    lp = i.ToString(),
+                    value1 = LOTR_Manager.loadedLOTRs[i * 10].limgSrc,
+                };
+            }
+            else
             {
                 TV = new TableValues
                 {
@@ -55,21 +54,26 @@ namespace Przypominajka_3._0.Views
                     value8 = LOTR_Manager.loadedLOTRs[i * 10 + 7].limgSrc,
                     value9 = LOTR_Manager.loadedLOTRs[i * 10 + 8].limgSrc,
                     value10 = LOTR_Manager.loadedLOTRs[i * 10 + 9].limgSrc,
-              };
-              Dispatcher.Invoke(() =>
-              {
-                testGrid.Items.Add(TV);
-              });
+                };
             }
+                //Dispatcher.Invoke(() =>
+                //{
+                //    testGrid.Items.Add(TV);
+                //});
+            return Task.FromResult(TV);
         }
 
         private async void OnEventsViewLoaded(object sender, RoutedEventArgs e)
         {
             MainManager.ChangeStatusInfo(false);
-            await Task.Run(() =>
+            for (int i = 0; i < 10; i++)
             {
-                FillTable();
-            });
+                var val = await Task.Run(() =>
+                {
+                    return FillTable(i);
+                });
+                testGrid.Items.Add(val);
+            }
             MainManager.ChangeStatusInfo(true);
         }
 

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Przypominajka_3._0"
         xmlns:viewmodels="clr-namespace:Przypominajka_3._0.ViewModels"
         xmlns:views="clr-namespace:Przypominajka_3._0.Views"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Icon="/Assets/ULTRAicon.ico"
         Title="MT-pablo" Height="629.034" Width="1281.858" Loaded="WindowIsLoaded" WindowStartupLocation="CenterScreen">
@@ -50,8 +51,10 @@
             <Button x:Name="EvetsMainView" Content="Events" FontSize="20" Focusable="False" Height="50" Click="EventsView_Click"/>
             <Button x:Name="EventsAddView" Content="Add Event" FontSize="20" Focusable="False" Height="50" Click="EventsAdd_Click"/>
             <Button x:Name="LOTRview" Content="LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRView_Click" Margin="0,5,0,0"/>
-            <Button x:Name="LOTRaddView" Content="Add LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRadd_Click" Visibility="Hidden"/>
-            <TextBox x:Name="testStatus" Height="auto" Text="FALSE" FontSize="18" FontWeight="Bold" TextAlignment="Center" Background="White" Margin="0,40,0,5" IsReadOnly="True"/>
+            <!--<Button x:Name="LOTRaddView" Content="Add LOTR" FontSize="20" Focusable="False" Height="50" Click="LOTRadd_Click" Visibility="Hidden"/>-->
+
+            <Image x:Name="loadingGif" gif:ImageBehavior.AnimatedSource="/Assets/loading2.gif" Height="80"  Margin="0,40,0,5" Visibility="Hidden"/>
+            <!--<TextBox x:Name="testStatus" Height="auto" Text="FALSE" FontSize="18" FontWeight="Bold" TextAlignment="Center" Background="White" Margin="0,40,0,5" IsReadOnly="True"/>-->
             <Button x:Name="goToResFolder" Content="App Folder" FontSize="14" Focusable="False" Height="22" Click="goToResFolder_Click"/>
             <Button x:Name="autoStartChangeButton" Content="Toggle Autostart" FontSize="14" Focusable="False" Height="22" Click="autoStartChangeButton_Click"/>
             <Button x:Name="createDesktopShortcut" Content="Add Desktop Shortcut" FontSize="14" Focusable="False" Height="22" Click="createDesktopShortcut_Click"/>

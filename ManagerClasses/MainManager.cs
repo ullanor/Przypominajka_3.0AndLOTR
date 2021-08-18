@@ -44,8 +44,8 @@ namespace Przypominajka_3._0
         }
         public static void ChangeStatusInfo(bool finished)
         {
-            if(finished) MainWindow.testStatus.Text = DefaultStatusText;
-            else MainWindow.testStatus.Text = DefaultStatusTextWorking;
+            if(finished) MainWindow.loadingGif.Visibility = Visibility.Hidden;//MainWindow.testStatus.Text = DefaultStatusText;
+            else MainWindow.loadingGif.Visibility = Visibility.Visible;//MainWindow.testStatus.Text = DefaultStatusTextWorking;
         }
 
         public static void ExtractFileResource(string resource_name, string file_name)
