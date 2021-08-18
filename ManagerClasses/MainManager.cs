@@ -48,6 +48,18 @@ namespace Przypominajka_3._0
             else MainWindow.loadingGif.Visibility = Visibility.Visible;//MainWindow.testStatus.Text = DefaultStatusTextWorking;
         }
 
+        public static void ChangeLoadingText(bool finished, int count)
+        {
+            if (finished) { MainWindow.loadingText.Visibility = Visibility.Hidden; }
+            else
+            {
+                string txt = string.Empty;
+                for (int i = 0; i < count; i++) { txt += "#"; }
+                MainWindow.loadingText.Visibility = Visibility.Visible;
+                MainWindow.loadingText.Text = $"{txt} {count*10}%";
+            }
+        }
+
         public static void ExtractFileResource(string resource_name, string file_name)
         {
             try

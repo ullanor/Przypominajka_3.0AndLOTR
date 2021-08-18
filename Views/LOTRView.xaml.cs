@@ -56,50 +56,48 @@ namespace Przypominajka_3._0.Views
                     value10 = LOTR_Manager.loadedLOTRs[i * 10 + 9].limgSrc,
                 };
             }
-                //Dispatcher.Invoke(() =>
-                //{
-                //    testGrid.Items.Add(TV);
-                //});
+            Dispatcher.Invoke(() =>
+            {
+                testGrid.Items.Add(TV);
+                MainManager.ChangeLoadingText(false, i+1);
+            });
             return Task.FromResult(TV);
         }
 
         private async void OnEventsViewLoaded(object sender, RoutedEventArgs e)
         {
             MainManager.ChangeStatusInfo(false);
+            MainManager.ChangeLoadingText(false, 0);
             for (int i = 0; i < 10; i++)
             {
-                var val = await Task.Run(() =>
+                await Task.Run(() =>
                 {
-                    return FillTable(i);
+                    FillTable(i);
                 });
-                testGrid.Items.Add(val);
             }
+            MainManager.ChangeLoadingText(true, 0);
             MainManager.ChangeStatusInfo(true);
         }
 
+        private int ColumnNo, RowNo, number;
         private void OnEventSelected(object sender, SelectedCellsChangedEventArgs e)
         {
-            try
-            {
-                int ColumnNo = testGrid.CurrentCell.Column.DisplayIndex;
-                int RowNo = int.Parse((testGrid.CurrentCell.Item as TableValues).lp);
-                int number = RowNo * 10 + ColumnNo - 1;
-                //boxik.Text = RowNo + " col: "+ ColumnNo + " ImgSrc: "+ LOTR_Manager.loadedLOTRs[number].limgSrc;
-                LoadedLOTR loaded = LOTR_Manager.loadedLOTRs[number];
+            ColumnNo = testGrid.CurrentCell.Column.DisplayIndex;
+            RowNo = int.Parse((testGrid.CurrentCell.Item as TableValues).lp);
+            number = RowNo * 10 + ColumnNo - 1;
+            LoadedLOTR loaded = LOTR_Manager.loadedLOTRs[number];
 
-                IssueImagePrev.Source = new BitmapImage(new Uri(loaded.limgSrc));
-                Guide.Text = $"Guide: {loaded.lguide}";
-                Play.Text = $"Play: {loaded.lplay}";
-                Battle.Text = $"Battle: {loaded.lbattle}";
-                Paint.Text = $"Painting: {loaded.lpaint}";
-                Model.Text = $"Modelling: {loaded.lmodel}";
-                IssueExtras.Text = $"Extra: {loaded.lextras}";
+            IssueImagePrev.Source = new BitmapImage(new Uri(loaded.limgSrc));
+            Guide.Text = $"Guide: {loaded.lguide}";
+            Play.Text = $"Play: {loaded.lplay}";
+            Battle.Text = $"Battle: {loaded.lbattle}";
+            Paint.Text = $"Painting: {loaded.lpaint}";
+            Model.Text = $"Modelling: {loaded.lmodel}";
+            IssueExtras.Text = $"Extra: {loaded.lextras}";
 
-                LOTR_Manager.selectedLOTR = loaded;
-                EditIssueButton.IsEnabled = true;
-                IssueNo.Text = loaded.lIssue.ToString();
-            }
-            catch (Exception) { /*boxik.Text = ex.ToString();*/ }
+            LOTR_Manager.selectedLOTR = loaded;
+            EditIssueButton.IsEnabled = true;
+            IssueNo.Text = loaded.lIssue.ToString();
         }
 
         private void EditIssueButton_Click(object sender, RoutedEventArgs e)
