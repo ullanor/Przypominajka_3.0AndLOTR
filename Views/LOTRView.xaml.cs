@@ -25,58 +25,88 @@ namespace Przypominajka_3._0.Views
         public LOTRView()
         {
             InitializeComponent();
-            LOTR_Manager.selectedLOTR = null;
+        }
+        private async Task InitializeLOTR()
+        {
+            //if (LOTR_Manager.loadedLOTRs != null) return;
+
+            LOTR_Manager.loadedLOTRs = new List<LoadedLOTR>();
+            MainManager.ChangeLoadingText(false, 0);
+            MainManager.ChangeStatusInfo(false);
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    LOTR_Manager.InitializeLOTRList(i);
+                    Dispatcher.Invoke(() =>
+                    {
+                        MainManager.ChangeLoadingText(false, i+1);
+                    });
+                }
+            });
+            //_ = Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(LOTR_Manager.loadedLOTRs.Count().ToString())));
+            MainManager.ChangeLoadingText(true, 0);
+            MainManager.ChangeStatusInfo(true);
+            //FillTable();
+            //await Task.Run(() =>
+            //{
+            //    LOTR_Manager.InitializeLOTRList();
+            //});
         }
 
-        private Task<TableValues> FillTable(int i)
+        private void FillTable()
         {
             TableValues TV;
-            if (i == 9)
+            for (int i = 0; i < 10; i++)
             {
-                TV = new TableValues
+                if (i == 9)
                 {
-                    lp = i.ToString(),
-                    value1 = LOTR_Manager.loadedLOTRs[i * 10].limgSrc,
-                };
-            }
-            else
-            {
-                TV = new TableValues
+                    TV = new TableValues
+                    {
+                        lp = i.ToString(),
+                        value1 = LOTR_Manager.loadedLOTRs[i * 10].limgSrc,
+                    };
+                }
+                else
                 {
-                    lp = i.ToString(),
-                    value1 = LOTR_Manager.loadedLOTRs[i * 10].limgSrc,
-                    value2 = LOTR_Manager.loadedLOTRs[i * 10 + 1].limgSrc,
-                    value3 = LOTR_Manager.loadedLOTRs[i * 10 + 2].limgSrc,
-                    value4 = LOTR_Manager.loadedLOTRs[i * 10 + 3].limgSrc,
-                    value5 = LOTR_Manager.loadedLOTRs[i * 10 + 4].limgSrc,
-                    value6 = LOTR_Manager.loadedLOTRs[i * 10 + 5].limgSrc,
-                    value7 = LOTR_Manager.loadedLOTRs[i * 10 + 6].limgSrc,
-                    value8 = LOTR_Manager.loadedLOTRs[i * 10 + 7].limgSrc,
-                    value9 = LOTR_Manager.loadedLOTRs[i * 10 + 8].limgSrc,
-                    value10 = LOTR_Manager.loadedLOTRs[i * 10 + 9].limgSrc,
-                };
-            }
-            Dispatcher.Invoke(() =>
-            {
+                    TV = new TableValues
+                    {
+                        lp = i.ToString(),
+                        value1 = LOTR_Manager.loadedLOTRs[i * 10].limgSrc,
+                        value2 = LOTR_Manager.loadedLOTRs[i * 10 + 1].limgSrc,
+                        value3 = LOTR_Manager.loadedLOTRs[i * 10 + 2].limgSrc,
+                        value4 = LOTR_Manager.loadedLOTRs[i * 10 + 3].limgSrc,
+                        value5 = LOTR_Manager.loadedLOTRs[i * 10 + 4].limgSrc,
+                        value6 = LOTR_Manager.loadedLOTRs[i * 10 + 5].limgSrc,
+                        value7 = LOTR_Manager.loadedLOTRs[i * 10 + 6].limgSrc,
+                        value8 = LOTR_Manager.loadedLOTRs[i * 10 + 7].limgSrc,
+                        value9 = LOTR_Manager.loadedLOTRs[i * 10 + 8].limgSrc,
+                        value10 = LOTR_Manager.loadedLOTRs[i * 10 + 9].limgSrc,
+                    };
+                }
+                //Dispatcher.Invoke(() =>
+                //{
                 testGrid.Items.Add(TV);
-                MainManager.ChangeLoadingText(false, i+1);
-            });
-            return Task.FromResult(TV);
+                //});
+            }
         }
 
         private async void OnEventsViewLoaded(object sender, RoutedEventArgs e)
         {
-            MainManager.ChangeStatusInfo(false);
-            MainManager.ChangeLoadingText(false, 0);
-            for (int i = 0; i < 10; i++)
-            {
-                await Task.Run(() =>
-                {
-                    FillTable(i);
-                });
-            }
-            MainManager.ChangeLoadingText(true, 0);
-            MainManager.ChangeStatusInfo(true);
+            LOTR_Manager.selectedLOTR = null;
+            if (LOTR_Manager.loadedLOTRs == null) await InitializeLOTR();
+            FillTable();
+            //MainManager.ChangeStatusInfo(false);
+            //MainManager.ChangeLoadingText(false, 0);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    await Task.Run(() =>
+            //    {
+            //        FillTable(i);
+            //    });
+            //}
+            //MainManager.ChangeLoadingText(true, 0);
+            //MainManager.ChangeStatusInfo(true);
         }
 
         private int ColumnNo, RowNo, number;
@@ -85,9 +115,10 @@ namespace Przypominajka_3._0.Views
             ColumnNo = testGrid.CurrentCell.Column.DisplayIndex;
             RowNo = int.Parse((testGrid.CurrentCell.Item as TableValues).lp);
             number = RowNo * 10 + ColumnNo - 1;
+            if (number > 90) return;
             LoadedLOTR loaded = LOTR_Manager.loadedLOTRs[number];
 
-            IssueImagePrev.Source = new BitmapImage(new Uri(loaded.limgSrc));
+            IssueImagePrev.Source = loaded.limgSrc;
             Guide.Text = $"Guide: {loaded.lguide}";
             Play.Text = $"Play: {loaded.lplay}";
             Battle.Text = $"Battle: {loaded.lbattle}";

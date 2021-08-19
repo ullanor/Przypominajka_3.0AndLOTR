@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Przypominajka_3._0
 {
@@ -78,31 +80,46 @@ namespace Przypominajka_3._0
             sqlite_conn.Close();
         }
 
-        public List<LoadedLOTR> GetDataFromTableLOTR()
+        public List<LoadedLOTR> GetDataFromTableLOTR(int down,int up)
         {
             List<LoadedLOTR> loadedLOTRs = new List<LoadedLOTR>();
             sqlite_conn = CreateConnectionLOTR();
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
             sqlite_cmd = sqlite_conn.CreateCommand();
-            sqlite_cmd.CommandText = "SELECT * FROM LOTRdeagostiniIssues;";// where rowid=2 (counter for ID)
+            sqlite_cmd.CommandText = $"SELECT * FROM LOTRdeagostiniIssues where issue BETWEEN {down} and {up};";// where rowid=2 (counter for ID)
             sqlite_cmd.ExecuteNonQuery();
 
             sqlite_datareader = sqlite_cmd.ExecuteReader();
             short i = 1;
+            LoadedLOTR lotr;
+            BitmapImage image;
+            FileStream stream;
             while (sqlite_datareader.Read())
             {
-                loadedLOTRs.Add(new LoadedLOTR()
+                image = new BitmapImage();
+                using (stream = new FileStream(sqlite_datareader.GetString(1), FileMode.Open, FileAccess.Read))
+                {
+                    image.BeginInit();
+                    image.DecodePixelWidth = 400;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.StreamSource = stream;
+                    image.EndInit();
+                }
+                image.Freeze();
+
+                lotr = new LoadedLOTR()
                 {
                     lIssue = sqlite_datareader.GetInt32(0),
-                    limgSrc = sqlite_datareader.GetString(1),
+                    limgSrc = image,
                     lguide = sqlite_datareader.GetString(2),
                     lplay = sqlite_datareader.GetString(3),
                     lbattle = sqlite_datareader.GetString(4),
                     lpaint = sqlite_datareader.GetString(5),
                     lmodel = sqlite_datareader.GetString(6),
                     lextras = sqlite_datareader.GetString(7)
-                });
+                };
+                loadedLOTRs.Add(lotr);
                 i++;
             }
             sqlite_conn.Close();

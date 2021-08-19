@@ -62,7 +62,8 @@ namespace Przypominajka_3._0.Views
             await Task.Run(() =>
             {
                 MainManager.SQL_LOTR.ModifyTableLOTR(id, imgSrc, desc6);
-                LOTR_Manager.InitializeLOTRList();
+                //LOTR_Manager.InitializeLOTRList();
+                LOTR_Manager.loadedLOTRs = null;
             });
             //ClearFields();
             MessageBox.Show(id + " issue was added!");

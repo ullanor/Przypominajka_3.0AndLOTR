@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Przypominajka_3._0
 {
@@ -35,9 +36,9 @@ namespace Przypominajka_3._0
             return filePath;
         }
 
-        public static void InitializeLOTRList()
+        public static void InitializeLOTRList(int row)
         {
-            loadedLOTRs = MainManager.SQL_LOTR.GetDataFromTableLOTR();
+            loadedLOTRs.AddRange(MainManager.SQL_LOTR.GetDataFromTableLOTR(row*10,(row+1)*10-1));//10 - 19
         }
         public static List<LoadedLOTR> loadedLOTRs;
     }
@@ -46,22 +47,22 @@ namespace Przypominajka_3._0
     public class TableValues
     {
         public string lp { get; set; }
-        public string value1 { get; set; }
-        public string value2 { get; set; }
-        public string value3 { get; set; }
-        public string value4 { get; set; }
-        public string value5 { get; set; }
-        public string value6 { get; set; }
-        public string value7 { get; set; }
-        public string value8 { get; set; }
-        public string value9 { get; set; }
-        public string value10 { get; set; }
+        public BitmapImage value1 { get; set; }
+        public BitmapImage value2 { get; set; }
+        public BitmapImage value3 { get; set; }
+        public BitmapImage value4 { get; set; }
+        public BitmapImage value5 { get; set; }
+        public BitmapImage value6 { get; set; }
+        public BitmapImage value7 { get; set; }
+        public BitmapImage value8 { get; set; }
+        public BitmapImage value9 { get; set; }
+        public BitmapImage value10 { get; set; }
     }
 
     public class LoadedLOTR
     {
         public int lIssue { get; set; }
-        public string limgSrc { get; set; }
+        public BitmapImage limgSrc { get; set; }
         public string lguide { get; set; }
         public string lplay { get; set; }
         public string lbattle { get; set; }

@@ -39,7 +39,7 @@ namespace Przypominajka_3._0
                 if (MainManager.SQL_LOTR == null) MainManager.SQL_LOTR = new SQLiteOperationsLOTR();
                 MainManager.MainWindow = this;
                 EventsManager.CheckEvents();
-                LOTR_Manager.InitializeLOTRList();
+                //LOTR_Manager.InitializeLOTRList();
             });
             DataContext = new EventsMainViewModel();
             //testStatus.Text = MainManager.DefaultStatusText;
