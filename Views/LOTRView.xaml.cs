@@ -40,6 +40,7 @@ namespace Przypominajka_3._0.Views
                     LOTR_Manager.InitializeLOTRList(i);
                     Dispatcher.Invoke(() =>
                     {
+                        FillTable(i);
                         MainManager.ChangeLoadingText(false, i+1);
                     });
                 }
@@ -52,6 +53,37 @@ namespace Przypominajka_3._0.Views
             //{
             //    LOTR_Manager.InitializeLOTRList();
             //});
+        }
+
+        private void FillTable(int row)
+        {
+                TableValues TV;
+                if (row == 9)
+                {
+                    TV = new TableValues
+                    {
+                        lp = row.ToString(),
+                        value1 = LOTR_Manager.loadedLOTRs[row * 10].limgSrc,
+                    };
+                }
+                else
+                {
+                    TV = new TableValues
+                    {
+                        lp = row.ToString(),
+                        value1 = LOTR_Manager.loadedLOTRs[row * 10].limgSrc,
+                        value2 = LOTR_Manager.loadedLOTRs[row * 10 + 1].limgSrc,
+                        value3 = LOTR_Manager.loadedLOTRs[row * 10 + 2].limgSrc,
+                        value4 = LOTR_Manager.loadedLOTRs[row * 10 + 3].limgSrc,
+                        value5 = LOTR_Manager.loadedLOTRs[row * 10 + 4].limgSrc,
+                        value6 = LOTR_Manager.loadedLOTRs[row * 10 + 5].limgSrc,
+                        value7 = LOTR_Manager.loadedLOTRs[row * 10 + 6].limgSrc,
+                        value8 = LOTR_Manager.loadedLOTRs[row * 10 + 7].limgSrc,
+                        value9 = LOTR_Manager.loadedLOTRs[row * 10 + 8].limgSrc,
+                        value10 = LOTR_Manager.loadedLOTRs[row * 10 + 9].limgSrc,
+                    };
+                }
+                testGrid.Items.Add(TV);
         }
 
         private void FillTable()
@@ -95,7 +127,7 @@ namespace Przypominajka_3._0.Views
         {
             LOTR_Manager.selectedLOTR = null;
             if (LOTR_Manager.loadedLOTRs == null) await InitializeLOTR();
-            FillTable();
+            else FillTable();
             //MainManager.ChangeStatusInfo(false);
             //MainManager.ChangeLoadingText(false, 0);
             //for (int i = 0; i < 10; i++)

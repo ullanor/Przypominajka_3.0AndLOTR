@@ -38,7 +38,7 @@ namespace Przypominajka_3._0
 
         public static void InitializeLOTRList(int row)
         {
-            loadedLOTRs.AddRange(MainManager.SQL_LOTR.GetDataFromTableLOTR(row*10,(row+1)*10-1));//10 - 19
+            loadedLOTRs.AddRange(MainManager.SQL_LOTR.GetDataFromTableLOTR((row * 10) + 1, (row + 1) * 10));//10 - 19
         }
         public static List<LoadedLOTR> loadedLOTRs;
     }
