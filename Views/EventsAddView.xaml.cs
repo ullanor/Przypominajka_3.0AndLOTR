@@ -52,9 +52,12 @@ namespace Przypominajka_3._0.Views
                 DateTime dt;
                 if (!EventExpTime.SelectedDate.HasValue) dt = DateTime.Now.Date;
                 else dt = ((DateTime)EventExpTime.SelectedDate).Date;
-                if (!eventIsModified) EventsManager.CreateNewEvent(EventName.Text, dt, (PrzypominajkaEventType)EventType.SelectedItem);
-                else EventsManager.ModifyEvent(EventName.Text, dt, (PrzypominajkaEventType)EventType.SelectedItem,evento.id);
-                ClearEventFields();
+                if (!eventIsModified) { EventsManager.CreateNewEvent(EventName.Text, dt, (PrzypominajkaEventType)EventType.SelectedItem); ClearEventFields(); }
+                else 
+                { 
+                    EventsManager.ModifyEvent(EventName.Text, dt, (PrzypominajkaEventType)EventType.SelectedItem, evento.id);
+                    MainManager.MainWindow.LoadEventsViewAfterEdit();
+                }
             }
         }
     }

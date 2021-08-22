@@ -51,6 +51,11 @@ namespace Przypominajka_3._0
             EventsAdd_Click(null,null);
         }
 
+        public void LoadEventsViewAfterEdit()
+        {
+            EventsView_Click(null, null);
+        }
+
         public void LoadLOTRaddForEditing()
         {
             LOTRadd_Click(null, null);
