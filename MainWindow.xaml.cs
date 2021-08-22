@@ -27,6 +27,7 @@ namespace Przypominajka_3._0
             InitializeComponent();
             //testStatus.Text = MainManager.DefaultStatusTextWorking;
             loadingGif.Visibility = Visibility.Visible;
+            menuText.Text = $"version: {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
 
             LoadData();
         }
