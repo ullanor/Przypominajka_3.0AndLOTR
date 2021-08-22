@@ -91,6 +91,7 @@
     <Compile Include="ManagerClasses\LOTR_Manager.cs" />
     <Compile Include="ManagerClasses\MainManager.cs" />
     <Compile Include="MiscClasses\NameToBrushConverterRates.cs" />
+    <Compile Include="MiscClasses\NameToNameConverter.cs" />
     <Compile Include="MiscClasses\RegistryToggler.cs" />
     <Compile Include="MiscClasses\ShortCutCreator.cs" />
     <Compile Include="SQLclasses\SQLiteOperations.cs" />
